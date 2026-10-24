@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#e0520e"/>
+  <rect y="300" width="512" height="212" rx="0" fill="#c94a0c"/>
+  <rect width="512" height="512" rx="112" fill="none"/>
+  <!-- el volante con orejas de gato -->
+  <path d="M148 150 L176 70 L226 128 Z" fill="#fffaf1"/>
+  <path d="M364 150 L336 70 L286 128 Z" fill="#fffaf1"/>
+  <path d="M160 132 L178 92 L204 124 Z" fill="#ff9aa8"/>
+  <path d="M352 132 L334 92 L308 124 Z" fill="#ff9aa8"/>
+  <circle cx="256" cy="268" r="150" fill="none" stroke="#fffaf1" stroke-width="44"/>
+  <circle cx="256" cy="268" r="46" fill="#fffaf1"/>
+  <path d="M120 250 Q256 210 392 250 L392 282 Q256 250 120 282 Z" fill="#fffaf1"/>
+  <path d="M232 300 L280 300 L296 404 L216 404 Z" fill="#fffaf1"/>
+  <!-- la L de novel -->
+  <rect x="356" y="356" width="112" height="120" rx="18" fill="#2b8a5c" stroke="#fffaf1" stroke-width="10"/>
+  <path d="M388 378 V448 H440" fill="none" stroke="#fffaf1" stroke-width="20" stroke-linecap="square"/>
+</svg>

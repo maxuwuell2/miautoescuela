@@ -1,0 +1,314 @@
+/* Base visual heredada de Nyango (r7): temas como materiales, papel, botones con canto, sellos y celebraciones. */
+:root, :root[data-tema="washi"] {
+  --r0: #d6607a; --r1: #3d63a6; --r2: #d8412a; --r3: #bf7f0a; --r4: #2b2420;
+  --fondo: #f3ead9; --fondo-2: #ead9bd; --mancha-a: rgba(242, 154, 58, .28); --mancha-b: rgba(143, 208, 242, .22);
+  --tile: #fffaf1; --borde: 0 solid transparent; --tinta: #2a1d12; --tinta-2: #75624f; --linea: rgba(42, 29, 18, .1);
+  --acento: #e0520e; --boton: #c94a0c; --labio: #8f3205; --sobre: #ffffff; --suave: #ffe8d6;
+  --hero: linear-gradient(140deg, #f7782c 0%, #e0520e 52%, #c4400a 100%); --hero-tinta: #ffffff; --hero-cta: #fffaf1; --hero-cta-tinta: #b8470f; --hero-glifo: rgba(255, 255, 255, .16);
+  --gram: #5b54c9; --ok: #2b8a5c; --mal: #d0452a; --sello: #c8241a; --oro: #f2b43a;
+  --radio: 30px; --radio-s: 18px; --sombra: 0 1px 0 rgba(255,255,255,.7) inset, 0 20px 40px -26px rgba(90, 50, 10, .55); --sombra-cta: 0 6px 0 var(--labio);
+  --f-tit: "Mochiy Pop One", "Zen Maru Gothic", sans-serif; --f-txt: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", system-ui, sans-serif; --f-num: "Fredoka", "Zen Maru Gothic", sans-serif; --peso-tit: 400; --espacio-tit: 0;
+  /* letra de estudio (los kanji y kana que se aprenden): de cuaderno, con los trazos como se escriben; igual en todos los temas */
+  --f-jp: "Klee One", "Zen Maru Gothic", serif;
+}
+:root[data-tema="noche"] {
+  --r0: #f29bb0; --r1: #6b9bf2; --r2: #f0644f; --r3: #f5b13d; --r4: #ece6dd;
+  --fondo: #0d1018; --fondo-2: #141a26; --mancha-a: rgba(255, 138, 61, .16); --mancha-b: rgba(124, 110, 255, .18);
+  --tile: rgba(24, 29, 42, .86); --borde: 1px solid rgba(255, 255, 255, .08); --tinta: #eef0f4; --tinta-2: #9aa3b4; --linea: rgba(255, 255, 255, .08);
+  --acento: #ff8a3d; --boton: #ff8a3d; --labio: #a8481a; --sobre: #1a1208; --suave: rgba(255, 138, 61, .14);
+  --hero: radial-gradient(120% 120% at 85% 10%, #4a3a8c 0%, #2a2350 45%, #171a33 100%); --hero-tinta: #f4f1ff; --hero-cta: #ff8a3d; --hero-cta-tinta: #1a1208; --hero-glifo: rgba(255, 180, 110, .13);
+  --gram: #9c90ff; --ok: #3ddc97; --mal: #ff6b6b; --sello: #ff7a52; --oro: #ffc35a;
+  --radio: 28px; --radio-s: 16px; --sombra: 0 24px 50px -26px rgba(0, 0, 0, .8); --sombra-cta: 0 0 28px rgba(255, 150, 70, .55), 0 5px 0 var(--labio);
+  --f-tit: "Zen Maru Gothic", system-ui, sans-serif; --f-txt: "Zen Maru Gothic", system-ui, sans-serif; --peso-tit: 900; --espacio-tit: -.02em;
+}
+:root[data-tema="pop"] {
+  --r0: #db2f8f; --r1: #3b82f6; --r2: #ef4444; --r3: #c47c06; --r4: #1f2430;
+  --fondo: #fff0f7; --fondo-2: #ffe1ef; --mancha-a: rgba(255, 210, 63, .35); --mancha-b: rgba(58, 209, 255, .3);
+  --tile: #ffffff; --borde: 3px solid #1a1033; --tinta: #1a1033; --tinta-2: #5b4d7a; --linea: rgba(26, 16, 51, .12);
+  --acento: #ff4fa3; --boton: #ff4fa3; --labio: #1a1033; --sobre: #ffffff; --suave: #ffe1f1;
+  --hero: #ffd23f; --hero-tinta: #1a1033; --hero-cta: #ff4fa3; --hero-cta-tinta: #ffffff; --hero-glifo: rgba(26, 16, 51, .1);
+  --gram: #7c3aed; --ok: #14b878; --mal: #ff4545; --sello: #ff4fa3; --oro: #ffd23f;
+  --radio: 26px; --radio-s: 16px; --sombra: 6px 6px 0 #1a1033; --sombra-cta: 0 5px 0 #1a1033;
+  --f-tit: "Mochiy Pop One", sans-serif; --f-txt: "Zen Maru Gothic", sans-serif; --peso-tit: 400; --espacio-tit: 0;
+}
+:root[data-tema="sumi"] {
+  --r0: #b0566b; --r1: #2f4f8f; --r2: #c8241a; --r3: #a06a19; --r4: #151412;
+  --fondo: #efebe3; --fondo-2: #e4ded2; --mancha-a: rgba(27, 26, 25, .06); --mancha-b: rgba(200, 36, 26, .05);
+  --tile: #f8f6f1; --borde: 1.5px solid #1b1a19; --tinta: #1b1a19; --tinta-2: #5d5a55; --linea: rgba(27, 26, 25, .14);
+  --acento: #c8241a; --boton: #1b1a19; --labio: #c8241a; --sobre: #f8f6f1; --suave: rgba(200, 36, 26, .07);
+  --hero: #1b1a19; --hero-tinta: #f8f6f1; --hero-cta: #c8241a; --hero-cta-tinta: #ffffff; --hero-glifo: rgba(248, 246, 241, .1);
+  --gram: #1b1a19; --ok: #1b1a19; --mal: #c8241a; --sello: #c8241a; --oro: #c8241a;
+  --radio: 8px; --radio-s: 6px; --sombra: 0 16px 34px -24px rgba(0, 0, 0, .5); --sombra-cta: 4px 4px 0 #1b1a19;
+  --f-tit: Georgia, "Times New Roman", serif; --f-txt: "Zen Maru Gothic", system-ui, sans-serif; --peso-tit: 400; --espacio-tit: .02em;
+}
+:root[data-tema="heisei"] {
+  --r0: #ff5fd2; --r1: #3b7bff; --r2: #ff3b5c; --r3: #f5b13d; --r4: #0b1030;
+  --fondo: #0d1240; --fondo-2: #182067; --mancha-a: rgba(255, 95, 210, .3); --mancha-b: rgba(127, 243, 255, .25);
+  --tile: linear-gradient(180deg, rgba(255,255,255,.97), rgba(222,230,246,.95) 48%, rgba(196,208,232,.95) 52%, rgba(240,244,252,.97)); --borde: 1px solid #fff; --tinta: #0b1030; --tinta-2: #3d4876; --linea: rgba(11, 16, 48, .12);
+  --acento: #3b7bff; --boton: linear-gradient(180deg, #9cc2ff, #3b7bff 48%, #1f4fd0 52%, #5b8dff); --labio: #13308f; --sobre: #ffffff; --suave: rgba(59, 123, 255, .12);
+  --hero: linear-gradient(135deg, #2b3fd8 0%, #6a3fd1 55%, #ff5fd2 100%); --hero-tinta: #ffffff; --hero-cta: linear-gradient(180deg, #ffffff, #dfe7f6 50%, #c3cfe7 51%, #f4f7fd); --hero-cta-tinta: #13308f; --hero-glifo: rgba(255, 255, 255, .14);
+  --gram: #d63fc0; --ok: #00b383; --mal: #ff3b8d; --sello: #ff3b8d; --oro: #c6ff3d;
+  --radio: 22px; --radio-s: 14px; --sombra: 0 0 0 1px rgba(11, 16, 48, .3), 0 18px 40px -16px rgba(10, 20, 120, .7); --sombra-cta: 0 4px 0 var(--labio), inset 0 1px 0 rgba(255,255,255,.8);
+  --f-tit: "Fredoka", ui-monospace, monospace; --f-txt: "Zen Maru Gothic", system-ui, sans-serif; --f-num: "Fredoka", ui-monospace, monospace; --peso-tit: 400; --espacio-tit: .02em;
+}
+/* el papel de las tarjetas de estudio, por tema: su color macizo, el canto, las hojas del mazo y la fibra */
+:root, :root[data-tema="washi"] { --muelle: cubic-bezier(.34, 1.56, .64, 1); --tile-c: #fffaf1; --canto-c: #e4d3b4; --grosor: 5px; --hoja: #f4ead8; --hoja-borde: rgba(42, 29, 18, .12); --borde-carta: 2px solid rgba(42, 29, 18, .08); --fibra: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.05 .7' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .33 0 0 0 0 .18 0 0 0 .16 -.04'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); }
+:root[data-tema="noche"] { --tile-c: #1a2030; --canto-c: #0a0d14; --grosor: 5px; --hoja: #161b27; --hoja-borde: rgba(255, 255, 255, .09); --borde-carta: 1px solid rgba(255, 255, 255, .1); --fibra: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.05 .7' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .85 0 0 0 0 .88 0 0 0 0 1 0 0 0 .1 -.04'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); }
+:root[data-tema="pop"] { --tile-c: #ffffff; --canto-c: #1a1033; --grosor: 6px; --hoja: #ffffff; --hoja-borde: #1a1033; --borde-carta: 3px solid #1a1033; --fibra: none; }
+:root[data-tema="sumi"] { --tile-c: #f8f6f1; --canto-c: #1b1a19; --grosor: 3px; --hoja: #f1eee7; --hoja-borde: rgba(27, 26, 25, .4); --borde-carta: 1.5px solid #1b1a19; --fibra: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.05 .7' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .29 0 0 0 0 .27 0 0 0 .12 -.04'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); }
+:root[data-tema="heisei"] { --tile-c: #eef3fc; --canto-c: #8fa3cf; --grosor: 5px; --hoja: #d3ddf0; --hoja-borde: rgba(11, 16, 48, .25); --borde-carta: 1px solid #ffffff; --fibra: none; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; overflow: hidden; background: var(--fondo); color: var(--tinta); font: 500 15.5px/1.5 var(--f-txt); -webkit-font-smoothing: antialiased; }
+body::before, body::after { content: ""; position: fixed; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(60px); z-index: 0; pointer-events: none; animation: deriva 26s ease-in-out infinite alternate; }
+body::before { background: var(--mancha-a); left: -18vmax; top: -22vmax; } body::after { background: var(--mancha-b); right: -20vmax; bottom: -26vmax; animation-delay: -9s; }
+@keyframes deriva { to { transform: translate(8vmax, 6vmax) scale(1.12); } }
+button { font: inherit; color: inherit; }
+button:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--acento); outline-offset: 3px; }
+.kbd { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 7px; font: 700 12px var(--f-num); background: rgba(0,0,0,.12); }
+.app { position: relative; z-index: 1; height: 100%; display: grid; grid-template-columns: 96px minmax(0, 1fr); }
+
+.cab { display: flex; align-items: flex-end; gap: 16px; }
+.cab .saludo { margin: 0; font: 700 14px var(--f-txt); color: var(--acento); letter-spacing: .06em; }
+:root[data-tema="sumi"] .cab .saludo, :root[data-tema="pop"] .cab .saludo { color: var(--tinta-2); }
+.cab h1 { margin: 2px 0 0; font: var(--peso-tit) 34px/1.05 var(--f-tit); letter-spacing: var(--espacio-tit); }
+.cab .chips { margin-left: auto; display: flex; gap: 10px; }
+.chip { display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 99px; background: var(--tile); border: var(--borde); box-shadow: var(--sombra); }
+button.chip { font: inherit; color: inherit; cursor: pointer; text-align: left; transition: transform .3s var(--muelle); } button.chip:hover { transform: translateY(-2px) rotate(-1deg); } button.chip:active { transform: scale(.95); }
+.chip .ic { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font: 700 14px var(--f-num); background: var(--boton); color: var(--sobre); }
+.chip b { font: 700 16px var(--f-num); display: block; line-height: 1.1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chip small { font-size: 12px; color: var(--tinta-2); display: block; }
+.chip .barra { width: 110px; height: 8px; border-radius: 99px; background: var(--linea); margin-top: 4px; overflow: hidden; }
+.chip .barra i { display: block; height: 100%; width: 0; background: var(--acento); border-radius: inherit; }
+.letra { display: inline-block; } .pal { display: inline-block; white-space: nowrap; }
+
+.t { position: relative; min-width: 0; min-height: 0; border-radius: var(--radio); background: var(--tile); border: var(--borde); box-shadow: var(--sombra); padding: 20px 22px; }
+.t h2 { margin: 0; font: 700 12px var(--f-txt); letter-spacing: .14em; color: var(--tinta-2); text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+.cta { height: 66px; padding: 0 30px 0 34px; border: 0; border-radius: 99px; background: var(--hero-cta); color: var(--hero-cta-tinta); font: 900 21px var(--f-txt); cursor: pointer; display: inline-flex; align-items: center; gap: 14px; box-shadow: 0 8px 0 rgba(0,0,0,.18), 0 18px 30px -12px rgba(0,0,0,.4); position: relative; overflow: hidden; transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .12s; }
+:root[data-tema="pop"] .cta { border: 3px solid #1a1033; box-shadow: 0 6px 0 #1a1033; }
+:root[data-tema="sumi"] .cta { border-radius: 6px; font-family: Georgia, serif; font-weight: 400; font-size: 26px; box-shadow: 5px 5px 0 rgba(248,246,241,.35); }
+:root[data-tema="heisei"] .cta { font-family: "Fredoka", ui-monospace, monospace; letter-spacing: .06em; }
+.cta::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%); translate: -130% 0; animation: brillo 3.4s ease-in-out infinite; }
+@keyframes brillo { 0%, 60% { translate: -130% 0; } 90%, 100% { translate: 130% 0; } }
+.cta:active { transform: scale(1.06, .88); box-shadow: 0 2px 0 rgba(0,0,0,.18); }
+.cta .kbd { background: rgba(0,0,0,.1); }
+/* ── las pantallas (lección, clases, historias, guía, jefe…): a pantalla completa, sobre la app; cada una en css/<nombre>.css ── */
+.pantalla { position: fixed; inset: 0; z-index: 52; background: var(--fondo); overflow: hidden auto; overscroll-behavior: contain; }
+.pantalla::before { content: ""; position: fixed; inset: 0; background: radial-gradient(70% 60% at 50% 30%, var(--mancha-a), transparent 70%); pointer-events: none; }
+.pantalla > * { position: relative; }
+.p-arriba { display: flex; align-items: center; gap: 16px; max-width: 1240px; margin: 0 auto; padding: 18px 28px 0; }
+.p-tit { display: grid; gap: 2px; } .p-tit small { font: 800 12px var(--f-txt); letter-spacing: .22em; color: var(--acento); }
+.p-tit h1 { margin: 0; font: var(--peso-tit) 34px/1.05 var(--f-tit); letter-spacing: var(--espacio-tit); }
+.p-cuerpo { max-width: 1240px; margin: 0 auto; padding: 22px 28px 40px; }
+.p-vacio { color: var(--tinta-2); }
+.tu-ir { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
+@media (max-width: 760px) { .p-arriba { padding: 12px 14px 0; } .p-cuerpo { padding: 14px 14px 30px; } .p-tit h1 { font-size: 26px; } .tu-ir { grid-template-columns: 1fr 1fr; } }
+
+/* ── la sesión de repaso (sale de la tarjeta grande) ── */
+/* Las cartas son tarjetas de estudio (単語カード): papel con fibra, una anilla que entra por un agujero reforzado y cuyo metal
+   dice el rango (plástico, bronce, plata, oro), la banda del grado arriba, el sello y la barra de dominio, y el mazo debajo. */
+@property --n { syntax: '<number>'; inherits: true; initial-value: 0; }
+.sesion { position: fixed; inset: 0; z-index: 50; background: var(--fondo); display: flex; flex-direction: column; padding: 18px 28px 14px; clip-path: inset(0 round 0); overflow: hidden; }
+.sesion::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 60% at 50% 40%, var(--mancha-a), transparent 70%); pointer-events: none; }
+.s-arriba { position: relative; z-index: 3; display: flex; align-items: center; gap: 14px; max-width: 1240px; width: 100%; margin: 0 auto; }
+.s-cerrar { flex: none; width: 46px; height: 46px; border-radius: 50%; border: var(--borde); background: var(--tile); color: var(--tinta); cursor: pointer; font-size: 18px; box-shadow: 0 4px 0 var(--linea); transition: translate .18s var(--muelle), box-shadow .12s; }
+.s-cerrar:hover { translate: 0 -2px; box-shadow: 0 6px 0 var(--linea); } .s-cerrar:active { translate: 0 3px; box-shadow: 0 1px 0 var(--linea); }
+.s-prog { flex: 1; min-width: 80px; height: 18px; border-radius: 99px; background: var(--linea); position: relative; overflow: hidden; }
+.s-prog i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: inherit; background: var(--ok); }
+.s-prog i::after { content: ""; position: absolute; left: 10px; right: 10px; top: 4px; height: 4px; border-radius: 99px; background: rgba(255, 255, 255, .45); }
+.s-cuenta { flex: none; font: 700 15px var(--f-num); color: var(--tinta-2); font-variant-numeric: tabular-nums; }
+/* ══ la carta ══ */
+.carta { --rk: var(--linea); --n: 0; --tc: var(--acento); --m1: #ffffff; --m2: #e6dfd2; --m3: #b3a995;
+  position: relative; width: min(660px, 100%); border-radius: calc(var(--radio) - 2px); color: var(--tinta); text-align: center; isolation: isolate;
+  background: var(--fibra), var(--tile); border: var(--borde-carta);
+  /* su canto y dos tarjetas del mazo que asoman debajo */
+  box-shadow: 0 var(--grosor) 0 var(--canto-c), 0 calc(var(--grosor) + 8px) 0 -4px var(--hoja), 0 calc(var(--grosor) + 8px) 0 -2px var(--hoja-borde),
+    0 calc(var(--grosor) + 17px) 0 -8px var(--hoja), 0 calc(var(--grosor) + 17px) 0 -6px var(--hoja-borde), 0 36px 44px -26px rgba(40, 25, 10, .45);
+  transition: --n .8s var(--muelle), border-color .3s; }
+.carta[data-tipo="kanji"] { --tc: var(--r1); } .carta[data-tipo="radical"] { --tc: var(--r2); }
+/* el rango: color de la banda, metal de la anilla y marcas de la barra de dominio */
+.carta.mat-0 { --rk: var(--r0); --n: 1; }
+.carta.mat-1 { --rk: var(--r1); --n: 2; --m1: #f6cfa4; --m2: #c4824b; --m3: #84481d; }   /* bronce */
+.carta.mat-2 { --rk: var(--r2); --n: 3; --m1: #ffffff; --m2: #c4cbd3; --m3: #7b8591; }   /* plata */
+.carta.mat-3 { --rk: var(--r3); --n: 4; --m1: #fff3c4; --m2: #e4b43e; --m3: #976806; border-color: #d9a93a; }   /* oro */
+.carta.mat-4 { --rk: var(--r4); --n: 5; --m1: #fff3c4; --m2: #e4b43e; --m3: #976806; border-color: #d9a93a;   /* oro y laca: la leyenda brilla */
+  box-shadow: 0 var(--grosor) 0 var(--canto-c), 0 calc(var(--grosor) + 8px) 0 -4px var(--hoja), 0 calc(var(--grosor) + 8px) 0 -2px var(--hoja-borde),
+    0 calc(var(--grosor) + 17px) 0 -8px var(--hoja), 0 calc(var(--grosor) + 17px) 0 -6px var(--hoja-borde), 0 0 0 1px rgba(217, 169, 58, .45), 0 0 40px -4px rgba(217, 169, 58, .55), 0 36px 44px -26px rgba(40, 25, 10, .45); }
+.carta.fallo { border-color: color-mix(in srgb, var(--mal) 55%, transparent); }
+/* la banda: washi de sakura, sashiko índigo, laca bermellón, pan de oro y laca negra con hilo de oro */
+.carta::before { content: ""; position: absolute; inset: 0 0 auto; height: 12px; border-radius: calc(var(--radio) - 4px) calc(var(--radio) - 4px) 0 0; background: var(--rk); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .12); z-index: 1; pointer-events: none; }
+.carta.mat-0::before { background: radial-gradient(circle at 7px 6px, rgba(255, 255, 255, .75) 0 1.7px, transparent 2.2px) 0 0 / 15px 12px, var(--rk); }
+.carta.mat-1::before { background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .6) 0 7px, transparent 7px 13px) 0 5px / 100% 2px no-repeat, var(--rk); }
+.carta.mat-2::before { background: linear-gradient(180deg, rgba(255, 255, 255, .42), transparent 65%), var(--rk); }
+.carta.mat-3::before { background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, .75) 46%, transparent 60%) 0 0 / 260% 100%, linear-gradient(180deg, #f8dc8a, #c98d14); animation: oro 3.4s ease-in-out infinite; }
+.carta.mat-4::before { background: linear-gradient(105deg, transparent 32%, rgba(255, 236, 170, .55) 46%, transparent 60%) 0 0 / 260% 100%, linear-gradient(90deg, transparent, #f2cf6e 20% 80%, transparent) 0 8px / 100% 1.5px no-repeat, var(--rk); animation: oro 2.6s ease-in-out infinite; }
+@keyframes oro { from { background-position: 130% 0, 0 8px, 0 0; } to { background-position: -130% 0, 0 8px, 0 0; } }
+/* la anilla: el refuerzo de papel alrededor del agujero, el aro de metal y, encima, el agujero, para que el aro se meta dentro;
+   la mitad de detrás la tapa la carta */
+:is(.carta, .ficha) .anilla { position: absolute; left: 22px; top: -24px; width: 38px; height: 66px; z-index: 5; pointer-events: none;
+  background: radial-gradient(circle at 19px 52px, transparent 0 8.5px, color-mix(in srgb, var(--tinta) 7%, var(--tile-c)) 9px 13px, var(--linea) 13.5px 14.5px, transparent 15px); }
+:is(.carta, .ficha) .anilla::before { content: ""; position: absolute; left: 4px; top: 0; box-sizing: border-box; width: 30px; height: 56px; border-radius: 50%; border: 6px solid; border-color: var(--m1) var(--m2) var(--m3) var(--m1);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .14), 0 0 0 1px rgba(0, 0, 0, .16), 2px 3px 3px rgba(0, 0, 0, .2); transform-origin: 15px 52px;
+  clip-path: polygon(-30% -30%, 130% -30%, 130% 22px, 50% 22px, 50% 130%, -30% 130%); }
+:is(.carta, .ficha) .anilla::after { content: ""; position: absolute; left: 11px; top: 44px; width: 16px; height: 16px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--fondo-2) 55%, #000) 0 45%, color-mix(in srgb, var(--fondo-2) 85%, #000)); box-shadow: inset 0 2px 3px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .35); }
+.carta.tintinea .anilla::before { animation: tintineo .9s var(--muelle); }
+@keyframes tintineo { 25% { rotate: -16deg; } 55% { rotate: 10deg; } 80% { rotate: -4deg; } }
+/* arriba: el tipo con su color y el rango como sello, con su barra de dominio (cinco marcas, una por grado) */
+.carta .c-arriba { position: relative; z-index: 3; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 26px 24px 0 70px; }
+.tipo-c { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 13px 0 10px; border-radius: 99px; border: 2px solid var(--linea); background: color-mix(in srgb, var(--tinta) 4%, var(--tile-c)); font: 800 11px/1 var(--f-txt); letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-2); }
+.tipo-c i { width: 10px; height: 10px; border-radius: 50%; background: var(--tc); box-shadow: 0 0 0 3px color-mix(in srgb, var(--tc) 24%, transparent); }
+.sello-r { display: grid; grid-template-columns: auto auto; align-items: center; justify-items: start; column-gap: 10px; row-gap: 6px; font: 800 12.5px/1 var(--f-txt); letter-spacing: .03em; color: var(--tinta-2); }
+.sello-r i { grid-row: 1 / span 2; min-width: 36px; height: 36px; padding: 0 7px; display: grid; place-items: center; border-radius: 10px; white-space: nowrap; font: 900 15px/1 var(--f-txt); font-style: normal; color: var(--rk);
+  background: color-mix(in srgb, var(--rk) 8%, var(--tile-c)); box-shadow: inset 0 0 0 2.5px var(--rk), 0 3px 0 color-mix(in srgb, var(--rk) 30%, transparent); rotate: -6deg; }
+.carta.mat-0 .sello-r i { font-size: 13px; } .carta.mat-2 .sello-r i { font-size: 18px; }
+.carta.mat-4 .sello-r i { color: #b8860b; box-shadow: inset 0 0 0 2.5px #d9a93a, 0 3px 0 rgba(217, 169, 58, .4); background: #1b1714; }
+:root[data-tema="noche"] .carta.mat-4 .sello-r i { background: #2a2418; }
+.sello-r::after { content: ""; width: 54px; height: 6px; border-radius: 2px; background: linear-gradient(90deg, var(--rk) calc(var(--n) * 20%), var(--linea) 0);
+  -webkit-mask: repeating-linear-gradient(90deg, #000 0 8.8px, transparent 8.8px 10.8px); mask: repeating-linear-gradient(90deg, #000 0 8.8px, transparent 8.8px 10.8px); }
+.carta.mat-3 .sello-r::after { background: linear-gradient(90deg, #d9a93a calc(var(--n) * 20%), var(--linea) 0); }
+/* la cara: la palabra, el kanji o el elemento (o el altavoz, en Escuchar) */
+.c-cara { display: grid; justify-items: center; align-content: center; min-height: 214px; padding: 8px 34px 36px; }
+.carta .pal-jp { font: 600 clamp(64px, 11vh, 104px)/1.15 var(--f-jp); margin: 0; max-width: 100%; }
+.carta .pal-jp.solo { font-size: clamp(96px, 16vh, 150px); font-weight: 700; line-height: 1.05; }
+/* las palabras largas encogen para caber en la carta (nunca se sale por los lados) */
+.carta .c-cara { container-type: inline-size; min-width: 0; }
+.carta .pal-jp[style*="--nc"] { font-size: min(clamp(64px, 11vh, 104px), calc((100cqw - 12px) / var(--nc) * .92)); } .carta .pal-jp.solo[style*="--nc"] { font-size: min(clamp(96px, 16vh, 150px), calc((100cqw - 12px) / var(--nc) * .92)); }
+.carta .lect { min-height: 34px; margin-top: 2px; font: 700 24px var(--f-txt); color: var(--acento); opacity: 0; }
+.altavoz { position: relative; width: 132px; height: 132px; margin-top: 6px; border-radius: 50%; border: 0; cursor: pointer; display: grid; place-items: center; background: var(--boton); color: var(--sobre);
+  box-shadow: 0 6px 0 var(--labio), 0 20px 40px -18px var(--acento); transition: translate .18s var(--muelle), box-shadow .12s; }
+.altavoz:hover { translate: 0 -3px; } .altavoz:active { translate: 0 4px; box-shadow: 0 2px 0 var(--labio); }
+.altavoz .av-ico { font-size: 46px; translate: 5px 0; }
+.ondas, .ondas i { position: absolute; inset: 0; border-radius: 50%; pointer-events: none; }
+.ondas i { border: 3px solid var(--acento); opacity: 0; }
+.altavoz.sonando .ondas i { animation: onda 1.5s ease-out infinite; }
+.altavoz.sonando .ondas i:nth-child(2) { animation-delay: .5s; } .altavoz.sonando .ondas i:nth-child(3) { animation-delay: 1s; }
+@keyframes onda { from { opacity: .7; transform: scale(1); } to { opacity: 0; transform: scale(1.8); } }
+.av-txt { margin-top: 16px; font: 700 13px var(--f-txt); color: var(--tinta-2); }
+/* al acertar, un destello cruza la carta */
+.carta .brillo { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; z-index: 4; }
+.carta .brillo::before { content: ""; position: absolute; top: -30%; bottom: -30%; left: -60%; width: 38%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .75), transparent); rotate: 14deg; opacity: 0; }
+.carta.brilla .brillo::before { animation: brillo .9s ease-out; }
+@keyframes brillo { 0% { left: -60%; opacity: 0; } 15% { opacity: 1; } 100% { left: 130%; opacity: 0; } }
+/* los sellos: 正 al acertar, 昇 al subir de rango */
+.sello-c { position: absolute; right: 30px; top: 72px; width: 88px; height: 88px; border-radius: 16px; border: 4px solid var(--sello); color: var(--sello); display: grid; place-items: center; font: 900 48px var(--f-txt); rotate: -10deg;
+  background: color-mix(in srgb, var(--tile-c) 72%, transparent); box-shadow: inset 0 0 0 3px var(--tile-c), inset 0 0 0 6px var(--sello); z-index: 6; pointer-events: none; }
+.sello-c.sube { right: auto; left: 30px; border-radius: 50%; color: #b8860b; border-color: #d9a93a; box-shadow: inset 0 0 0 3px var(--tile-c), inset 0 0 0 6px #d9a93a; }
+/* la carta rota: dos cintas y una grieta */
+.carta .cinta { position: absolute; z-index: 5; width: 120px; height: 26px; background: rgba(242, 180, 58, .75); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); pointer-events: none; }
+.carta .cinta.a { right: -18px; bottom: 34px; rotate: -34deg; } .carta .cinta.b { right: 8px; bottom: 62px; rotate: -20deg; background: rgba(143, 208, 242, .7); }
+.carta .grieta { position: absolute; z-index: 4; right: 22px; bottom: 16px; width: 120px; height: 72px; scale: -1 -1; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linejoin: round; opacity: .55; pointer-events: none; }
+.cinta-p { display: inline-flex; align-items: center; gap: 10px; margin-top: 30px; padding: 6px 18px 6px 6px; border-radius: 99px; background: var(--tile); border: var(--borde); box-shadow: 0 3px 0 var(--linea); font: 900 13px var(--f-txt); letter-spacing: .14em; color: var(--tinta); }
+.cinta-p b { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: var(--r1); font: 900 15px/1 var(--f-txt); letter-spacing: 0; }
+.cinta-p.lec b { background: var(--mal); } .cinta-p.oir b { background: var(--gram); }
+.cinta-p small { margin-left: 2px; font: 700 12.5px var(--f-txt); letter-spacing: 0; color: var(--tinta-2); }
+.respuesta { position: relative; width: min(560px, 100%); margin-top: 16px; }
+.respuesta input { width: 100%; height: 72px; padding: 0 78px; border-radius: 22px; border: 2px solid var(--linea); border-bottom-width: 5px; background: var(--tile-c); color: var(--tinta); font: 700 26px var(--f-txt); text-align: center; outline: 0;
+  transition: border-color .2s, box-shadow .25s, background-color .2s, scale .25s var(--muelle); }
+.respuesta input::placeholder { color: color-mix(in srgb, var(--tinta) 35%, transparent); font-weight: 600; }
+.respuesta input:focus { border-color: var(--acento); box-shadow: 0 0 0 5px var(--suave); scale: 1.012; }
+.respuesta input.bien { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, var(--tile-c)); box-shadow: 0 0 0 6px color-mix(in srgb, var(--ok) 22%, transparent); animation: late .6s var(--muelle); }
+.respuesta input.mal { border-color: var(--mal); background: color-mix(in srgb, var(--mal) 10%, var(--tile-c)); box-shadow: 0 0 0 6px color-mix(in srgb, var(--mal) 18%, transparent); animation: tiembla .45s ease; }
+@keyframes late { 40% { scale: 1.04; } }
+@keyframes tiembla { 20% { translate: -10px 0; } 40% { translate: 9px 0; } 60% { translate: -6px 0; } 80% { translate: 4px 0; } }
+.enviar { position: absolute; right: 12px; top: 11px; width: 54px; height: 46px; border-radius: 14px; border: 0; background: var(--boton); color: var(--sobre); font: 900 21px var(--f-num); cursor: pointer; box-shadow: 0 4px 0 var(--labio); transition: translate .15s var(--muelle), box-shadow .1s; }
+.enviar:active { translate: 0 3px; box-shadow: 0 1px 0 var(--labio); }
+.opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: min(640px, 100%); margin-top: 16px; }
+.opcion { position: relative; min-height: 66px; border-radius: 20px; border: 2px solid var(--linea); border-bottom-width: 5px; background: var(--tile-c); color: var(--tinta); cursor: pointer; font: 800 18px/1.25 var(--f-txt); padding: 10px 16px 10px 62px; text-align: left;
+  transition: translate .16s var(--muelle), border-bottom-width .1s, background-color .2s, color .2s, opacity .3s; }
+:root[data-tema="pop"] .opcion { border-color: #1a1033; }
+.opcion .kbd { position: absolute; left: 12px; top: 50%; translate: 0 -50%; min-width: 36px; height: 36px; border-radius: 11px; background: var(--linea); box-shadow: 0 3px 0 var(--linea); font-size: 15px; }
+.opcion:not([disabled]):hover { translate: 0 -3px; background: var(--suave); }
+.opcion:not([disabled]):active { translate: 0 3px; border-bottom-width: 2px; }
+.opcion.bien { background: var(--ok); border-color: color-mix(in srgb, var(--ok) 65%, #000); color: #fff; animation: late .55s var(--muelle); }
+.opcion.mal { background: var(--mal); border-color: color-mix(in srgb, var(--mal) 65%, #000); color: #fff; animation: tiembla .45s ease; }
+.opcion.era { outline: 3px solid var(--ok); outline-offset: 3px; }
+.opcion:is(.bien, .mal) .kbd { background: rgba(255, 255, 255, .25); color: #fff; box-shadow: none; }
+.opcion[disabled] { cursor: default; } .opcion[disabled]:not(.bien):not(.mal):not(.era) { opacity: .45; }
+.no-se { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 12px 0 8px; border-radius: 16px; border: 2px solid var(--linea); background: var(--tile-c); color: var(--tinta); font: 800 14.5px var(--f-txt); cursor: pointer;
+  box-shadow: 0 4px 0 var(--linea); transition: translate .18s var(--muelle), box-shadow .12s; }
+.no-se:hover { translate: 0 -2px; box-shadow: 0 6px 0 var(--linea); } .no-se:active { translate: 0 3px; box-shadow: 0 1px 0 var(--linea); }
+.ns-ico { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; background: color-mix(in srgb, var(--oro) 26%, var(--tile-c)); color: color-mix(in srgb, var(--oro) 45%, var(--tinta)); font: 900 15px var(--f-txt); }
+.acciones { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 22px; }
+.b-claro, .b-tinta { display: inline-flex; align-items: center; gap: 9px; height: 50px; padding: 0 12px 0 18px; border-radius: 16px; font: 800 15.5px var(--f-txt); cursor: pointer; transition: translate .18s var(--muelle), box-shadow .12s, filter .2s; }
+.b-claro { border: 2px solid var(--linea); background: var(--tile-c); color: var(--tinta); box-shadow: 0 4px 0 var(--linea); }
+.b-claro .b-ic { color: var(--acento); font: 900 18px/1 var(--f-num); }
+.b-tinta { border: 0; padding: 0 12px 0 24px; background: var(--boton); color: var(--sobre); box-shadow: 0 5px 0 var(--labio); }
+.b-claro:hover, .b-tinta:hover { translate: 0 -2px; } .b-tinta:hover { filter: brightness(1.06); }
+.b-claro:active { translate: 0 3px; box-shadow: 0 1px 0 var(--linea); } .b-tinta:active { translate: 0 4px; box-shadow: 0 1px 0 var(--labio); }
+.b-tinta .kbd, .b-play .kbd { background: rgba(255, 255, 255, .22); }
+.b-claro.sonando .b-ic { animation: late .6s var(--muelle) infinite; }
+.d-nota, .d-truco { margin: 0; padding: 10px 14px 12px; border-radius: 14px; font: 500 14px/1.5 var(--f-txt); }
+.d-nota { background: color-mix(in srgb, var(--tinta) 4%, var(--tile-c)); }
+.d-truco { background: color-mix(in srgb, var(--oro) 13%, var(--tile-c)); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--oro) 32%, transparent); }
+.ficha-velo { position: fixed; inset: 0; z-index: 85; display: grid; place-items: center; padding: 20px; background: color-mix(in srgb, var(--fondo) 60%, transparent); backdrop-filter: blur(6px); }
+.ficha { --tc: var(--r1); --m1: #ffffff; --m2: #c4cbd3; --m3: #7b8591; position: relative; width: min(560px, 100%); display: grid; gap: 12px; padding: 34px 30px 26px; border-radius: calc(var(--radio) - 2px); text-align: left; color: var(--tinta);
+  background: var(--fibra), var(--tile); border: var(--borde-carta); box-shadow: 0 var(--grosor) 0 var(--canto-c), 0 30px 60px -28px rgba(0, 0, 0, .55); }
+.ficha::before { content: ""; position: absolute; inset: 0 0 auto; height: 12px; border-radius: calc(var(--radio) - 4px) calc(var(--radio) - 4px) 0 0; background: var(--tc); }
+.f-cerrar { position: absolute; right: 16px; top: 24px; width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--linea); background: var(--tile-c); color: var(--tinta); cursor: pointer; box-shadow: 0 3px 0 var(--linea); }
+.f-cab { display: flex; gap: 18px; align-items: center; }
+.ficha { max-height: calc(100vh - 40px); overflow: auto; overscroll-behavior: contain; padding-top: 50px; }
+:is(.d-truco, .d-nota) > small { display: block; margin-bottom: 4px; font: 800 10.5px var(--f-txt); letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-2); }
+.cj-tit[lang="ja"] { font: 900 17px/1.6 var(--f-txt); letter-spacing: .04em; text-transform: none; color: var(--tinta); } .cj-tit[lang="ja"] rt { font-size: .5em; color: var(--tinta-2); }
+.ficha.lamina { width: min(1060px, 100%); --tc: var(--acento); } .ficha.leccion { width: min(780px, 100%); --tc: var(--gram); } .ficha.conj { width: min(860px, 100%); --tc: var(--ok); }
+.ficha h2 { margin: 2px 0 0; font: var(--peso-tit) 34px/1.1 var(--f-tit); letter-spacing: var(--espacio-tit); }
+.sello-c .onda { position: absolute; inset: -8px; border-radius: 50%; border: 3px solid var(--sello); pointer-events: none; }
+.hito { position: fixed; inset: 0; z-index: 75; display: grid; place-items: center; pointer-events: none; overflow: hidden; }
+.hito-rayos { --rayo: color-mix(in srgb, var(--tinta) 32%, transparent); position: absolute; inset: -30%;
+  background: repeating-conic-gradient(from 3deg, var(--rayo) 0 .8deg, transparent .8deg 4.6deg), repeating-conic-gradient(from 0deg, var(--rayo) 0 .35deg, transparent .35deg 2.9deg);
+  -webkit-mask: radial-gradient(circle at 50% 50%, transparent 0 16%, #000 50%); mask: radial-gradient(circle at 50% 50%, transparent 0 16%, #000 50%); }
+:root:is([data-tema="noche"], [data-tema="heisei"]) .hito-rayos { --rayo: rgba(255, 226, 180, .32); }
+.hito-centro { position: relative; display: grid; justify-items: center; gap: 12px; }
+.hito-sello { width: 210px; height: 210px; border-radius: 50%; display: grid; place-items: center; align-content: center; color: var(--sello); border: 8px solid var(--sello);
+  background: color-mix(in srgb, var(--tile-c) 90%, transparent); box-shadow: inset 0 0 0 6px var(--tile-c), inset 0 0 0 10px var(--sello), 0 24px 44px -18px rgba(0, 0, 0, .45);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='210' height='210'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -3.2 3.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23t)'/%3E%3C/svg%3E") center / cover;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='210' height='210'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -3.2 3.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23t)'/%3E%3C/svg%3E") center / cover; }
+.hito-sello b { font: 700 108px/.9 var(--f-num); } .hito-sello span { margin-top: 4px; font: 900 24px/1 var(--f-txt); letter-spacing: .4em; margin-right: -.4em; }
+.hito:is(.t4, .t5, .t6) .hito-sello { color: #b8860b; border-color: #d9a93a; box-shadow: inset 0 0 0 6px var(--tile-c), inset 0 0 0 10px #d9a93a, 0 0 60px rgba(242, 190, 70, .55), 0 24px 44px -18px rgba(0, 0, 0, .45); }
+.hito-es { font: var(--peso-tit) 48px/1 var(--f-tit); letter-spacing: var(--espacio-tit); color: var(--tinta); text-shadow: 0 3px 0 var(--tile-c), 0 0 22px var(--tile-c); white-space: nowrap; }
+/* la fiesta de cada acierto, que crece con la racha */
+.destello { position: fixed; inset: 0; z-index: 70; pointer-events: none; background: radial-gradient(circle at 50% 42%, rgba(255, 244, 214, .95), rgba(255, 196, 110, .28) 36%, transparent 66%); }
+:root:is([data-tema="noche"], [data-tema="heisei"]) .destello { mix-blend-mode: screen; }
+.destello:is(.t5, .t6) { background: radial-gradient(circle at 50% 42%, rgba(255, 236, 170, 1), rgba(255, 180, 60, .4) 40%, transparent 70%); }
+.sello-c.fuerte { width: 96px; height: 96px; font-size: 54px; }
+.sello-c.oro { width: 104px; height: 104px; font-size: 58px; color: #b8860b; border-color: #d9a93a; box-shadow: inset 0 0 0 3px var(--tile-c), inset 0 0 0 6px #d9a93a, 0 0 26px rgba(242, 190, 70, .65); }
+.xp-vuela.t2 { font-size: 19px; } .xp-vuela.t3 { font-size: 21px; padding: 7px 14px; }
+.xp-vuela:is(.t4, .t5, .t6) { font-size: 24px; padding: 8px 16px; background: linear-gradient(180deg, #fff1bf, var(--oro)); box-shadow: 0 0 20px rgba(255, 190, 60, .75), 0 6px 14px -6px rgba(0, 0, 0, .4); }
+.xp-vuela { position: fixed; z-index: 90; padding: 6px 12px; border-radius: 99px; background: var(--oro); color: #3a2405; font: 700 17px var(--f-num); box-shadow: 0 6px 14px -6px rgba(0, 0, 0, .4); pointer-events: none; white-space: nowrap; }
+/* La mascota en el repaso: en su columna (nunca encima de la carta ni de las opciones), con el bocadillo sobre la cabeza */
+.reaccion { position: absolute; left: 3%; bottom: 0; z-index: 2; width: min(220px, 22vw); pointer-events: none; }
+.reaccion .dice { position: absolute; left: 80%; top: -8%; white-space: nowrap; padding: 10px 16px; border-radius: 18px 18px 18px 4px; background: var(--tile); border: var(--borde); box-shadow: var(--sombra); font: 900 17px var(--f-txt); }
+#reaccion { left: 2%; width: clamp(0px, calc((100vw - 780px) / 2 - 40px), 210px); }
+.reaccion .ny-cuerpo { position: relative; display: block; pointer-events: auto; cursor: pointer; transform-origin: 50% 100%; -webkit-tap-highlight-color: transparent; }
+.reaccion img { width: 100%; display: block; filter: drop-shadow(0 12px 18px rgba(0, 0, 0, .18)); transform-origin: 50% 100%; animation: ny-respira 2.6s ease-in-out infinite alternate; user-select: none; -webkit-user-drag: none; }
+@keyframes ny-respira { to { transform: scale(1.03, .975); } }
+.reaccion.duerme img { animation-duration: 4.2s; }
+#reaccion .dice { position: absolute; left: 14%; top: auto; bottom: calc(100% + 4px); width: max-content; white-space: normal; max-width: min(240px, 30vw); padding: 10px 15px; border-radius: 18px 18px 18px 4px; background: var(--tile); border: var(--borde); box-shadow: var(--sombra); font: 900 15px/1.3 var(--f-txt); text-wrap: balance; transform-origin: 10% 100%; pointer-events: none; }
+.ny-z { position: absolute; right: 18%; top: 4%; font: 900 22px var(--f-num); color: var(--tinta-2); opacity: 0; pointer-events: none; }
+.reaccion.duerme .ny-z { animation: ny-z 2.4s ease-out infinite; }
+@keyframes ny-z { 0% { opacity: 0; transform: translate(0, 0) scale(.6); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(26px, -50px) scale(1.4) rotate(12deg); } }
+.flota { position: fixed; z-index: 70; pointer-events: none; font: 700 30px var(--f-num); color: var(--acento); text-shadow: 0 3px 0 var(--tile), 0 0 14px rgba(0,0,0,.12); white-space: nowrap; }
+.aviso { position: fixed; left: 50%; bottom: 28px; translate: -50% 0; z-index: 80; padding: 12px 22px; border-radius: 99px; background: var(--tinta); color: var(--fondo); font: 700 15px var(--f-txt); box-shadow: 0 16px 30px -12px rgba(0,0,0,.5); }
+/* la barra lateral y la vista (de Nyango) */
+/* ── la barra lateral ── */
+.rail { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 20px 0 18px; position: relative; }
+.rail .marca { width: 54px; height: 54px; margin-bottom: 18px; display: grid; place-items: center; border-radius: 18px; background: var(--tile); border: var(--borde); box-shadow: var(--sombra); }
+.rail .marca svg { width: 42px; height: 42px; }
+.nav { position: relative; display: flex; flex-direction: column; gap: 6px; }
+.nav button { position: relative; z-index: 1; width: 70px; height: 66px; border: 0; background: none; border-radius: 20px; cursor: pointer; display: grid; place-items: center; align-content: center; gap: 2px; color: var(--tinta-2); transition: color .25s; }
+.nav button .ico-nav { display: block; width: 36px; height: 36px; transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+.nav button span { font: 700 11px var(--f-txt); letter-spacing: .02em; }
+.nav button:hover .ico-nav { transform: translateY(-3px) rotate(-8deg) scale(1.12); }
+.nav button[aria-current="page"] .ico-nav { transform: scale(1.08); }
+.nav button[aria-current="page"] { color: var(--sobre); }
+:root[data-tema="sumi"] .nav button[aria-current="page"] { color: var(--sobre); }
+.nav .burbuja { position: absolute; left: 0; top: 0; width: 70px; height: 66px; border-radius: 20px; background: var(--boton); box-shadow: var(--sombra-cta); z-index: 0; }
+.nav button .punto { position: absolute; top: 9px; right: 13px; width: 10px; height: 10px; border-radius: 50%; background: var(--acento); box-shadow: 0 0 0 3px var(--fondo); }
+.rail .abajo { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
+.redondo { width: 50px; height: 50px; border-radius: 50%; border: var(--borde); background: var(--tile); box-shadow: var(--sombra); cursor: pointer; display: grid; place-items: center; font: 900 17px var(--f-txt); transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
+.redondo:hover { transform: rotate(-12deg) scale(1.08); } .redondo:active { transform: scale(.9); }
+.paleta { width: 24px; height: 24px; border-radius: 50%; background: conic-gradient(#e0520e 0 20%, #2a2350 0 40%, #ffd23f 0 60%, #1b1a19 0 80%, #3b7bff 0); }
+
+/* ── la vista ── */
+.vista { position: relative; height: 100%; padding: 22px 26px 22px 6px; display: flex; flex-direction: column; gap: 18px; min-width: 0; overflow: hidden; }

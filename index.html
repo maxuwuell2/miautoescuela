@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es" data-tema="washi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>Miautoescuela</title>
+<meta name="description" content="Tu autoescuela gratis para aprobar el teórico del permiso B: temario, tests, señales, percepción del riesgo y plan.">
+<link rel="icon" type="image/svg+xml" href="icono.svg">
+<link rel="apple-touch-icon" href="icono.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f3ead9">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Miautoescuela">
+<script>try { var t = localStorage.getItem('miau-tema'); if (t) document.documentElement.dataset.tema = t; } catch (e) {}</script>
+<script type="importmap">{ "imports": { "gsap": "./vendor/gsap/index.js" } }</script>
+<link rel="stylesheet" href="vendor/fuentes/fuentes.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/iconos.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="rail">
+    <button class="marca" id="marca" aria-label="Miautoescuela"></button>
+    <nav class="nav" id="nav" aria-label="Secciones"><i class="burbuja" id="burbuja"></i></nav>
+    <div class="abajo">
+      <button class="redondo" id="b-tema" aria-label="Cambiar tema"><i class="paleta"></i></button>
+      <button class="redondo" id="b-sonido" aria-label="Sonido">♪</button>
+    </div>
+  </aside>
+  <main class="vista" id="vista" tabindex="-1"></main>
+</div>
+<nav class="tabbar" id="tabbar" aria-label="Secciones"></nav>
+<section class="pantalla" id="pantalla" hidden></section>
+<div class="revelar" id="revelar" aria-hidden="true"></div>
+<script type="module">import { gsap } from 'gsap'; window.gsap = gsap;</script>
+<script type="module" src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator && window.isSecureContext && location.protocol !== 'file:') {
+  var habia = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register('sw.js').catch(function () {});
+  navigator.serviceWorker.addEventListener('controllerchange', function () { if (habia && !window.miauRecarga) { window.miauRecarga = 1; location.reload(); } });
+}
+</script>
+</body>
+</html>
