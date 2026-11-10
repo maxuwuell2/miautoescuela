@@ -1,0 +1,19 @@
+{
+  "name": "Miautoescuela",
+  "short_name": "Miautoescuela",
+  "description": "El teórico del permiso B, a fondo: clases, dominio de cada tramo, modo intensivo y exámenes como el de la DGT",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d0e10",
+  "theme_color": "#0d0e10",
+  "icons": [
+    {
+      "src": "icono.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

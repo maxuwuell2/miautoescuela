@@ -1,0 +1,165 @@
+/* «Ojo al peligro» (src/pantallas/peligro.ts): la escena grande, la línea de tiempo con la ventana de peligro y tus
+   toques, el botón de peligro abajo (al alcance del pulgar) y la pregunta de después. La escena es un dibujo y lo que
+   va encima de ella (tapa, etiquetas) usa colores fijos; todo lo de alrededor, los del sistema. Prefijo pe-. */
+
+.pe { position: relative; overflow-x: clip; }
+.pe > .ses-main { position: relative; z-index: 1; }   /* por encima del fondo (fondoHtml) */
+.ses-main.ancho.pe-main { width: min(1040px, 100%); padding-top: 24px; padding-bottom: 16px; }
+
+/* el bloque de la escena: tan grande como quepa (16:9) sin tapar la línea de tiempo ni el botón */
+.pe-ver { width: clamp(min(100%, 480px), calc((100dvh - 318px) * 16 / 9), 100%); margin: 0 auto; }
+@supports (height: 100dvh) { .pe-ver { width: clamp(min(100%, 480px), calc((100dvh - 318px) * 16 / 9), 100%); } }
+
+/* ── la escena ── */
+.pe-escena { position: relative; aspect-ratio: 16 / 9; overflow: hidden; isolation: isolate; border-radius: var(--r-l); background: #0b0c0e;
+  border: 1px solid var(--linea-2); user-select: none; -webkit-user-select: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.pe-lienzo, .pe-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* al volver a verla, el marco se enciende mientras dura el peligro */
+.pe-escena::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 0 var(--verde-l);
+  transition: box-shadow .25s var(--ease); }
+.pe-escena.en-ventana::after { box-shadow: inset 0 0 0 4px var(--verde-l); }
+/* cada toque: un destello en el borde y, si tocas la escena, una onda donde has tocado */
+.pe-flash { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0; border-radius: inherit;
+  box-shadow: inset 0 0 0 3px var(--amarillo), inset 0 0 70px color-mix(in srgb, var(--amarillo) 30%, transparent); }
+.pe-onda { position: absolute; z-index: 3; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%; border: 3px solid var(--amarillo); pointer-events: none; }
+/* las luces y gestos de los muñecos según su data-luz (lo pone el motor): marcha atrás, semáforo, destellos azules,
+   rotativo ámbar y la cabeza del ciclista que mira atrás. Cada luz tiene su halo (-h), apagado si no toca */
+.pe-svg [data-luz~="reversa"] .reversa { fill: #fffdf2; }
+.pe-svg [data-luz~="reversa"] .reversa-h { opacity: .9; }
+.pe-svg [data-luz~="verde"] .sem-v { fill: #3ddc84; }
+.pe-svg [data-luz~="verde"] .sem-v-h { opacity: .55; }
+.pe-svg [data-luz~="ambar"] .sem-a { fill: #ffb02e; }
+.pe-svg [data-luz~="ambar"] .sem-a-h { opacity: .8; }
+.pe-svg [data-luz~="rojo"] .sem-r { fill: #ff3b2a; }
+.pe-svg [data-luz~="rojo"] .sem-r-h { opacity: .7; }
+.pe-svg [data-luz~="az1"] .az1, .pe-svg [data-luz~="az2"] .az2 { fill: #6cb4ff; }
+.pe-svg [data-luz~="az1"] .az1-h, .pe-svg [data-luz~="az2"] .az2-h { opacity: 1; }
+.pe-svg [data-luz~="rot"] .rot { fill: #ffc24a; }
+.pe-svg [data-luz~="rot"] .rot-h { opacity: .9; }
+.pe-svg [data-luz~="mira"] .cab-mira { display: inline; }
+
+/* las etiquetas sobre la escena */
+.pe-chip { position: absolute; top: 14px; z-index: 3; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 11px; border-radius: 99px;
+  font: 600 13px var(--f-texto); white-space: nowrap; pointer-events: none; opacity: 0; transform: translateY(-4px); transition: opacity .2s, transform .25s var(--ease); }
+.pe-chip .ic { width: 16px; height: 16px; }
+.pe-ahora { left: 14px; background: var(--verde-l); color: #fff; }
+.pe-rep { right: 14px; background: rgba(10, 11, 13, .62); color: #fff; backdrop-filter: blur(6px); }
+.pe-escena.en-ventana .pe-ahora, .pe-escena.repite .pe-rep { opacity: 1; transform: none; }
+
+/* la tapa, antes de verla: qué escena es y qué hacer */
+.pe-tapa { position: absolute; inset: 0; z-index: 4; display: grid; place-content: center; justify-items: center; gap: 10px; padding: 24px; text-align: center;
+  color: #fff; background: rgba(9, 10, 12, .66); cursor: pointer; }
+.pe-tapa-n { margin: 0; font: 600 13.5px var(--f-texto); color: rgba(255, 255, 255, .7); }
+.pe-tapa-tit { margin: 0; max-width: 18ch; font: 700 clamp(32px, 4.4vw, 52px)/.95 var(--f-titulo); letter-spacing: -.01em; text-wrap: balance; }
+.pe-tapa-p { margin: 6px 0 0; max-width: 44ch; font: 500 15.5px/1.45 var(--f-texto); color: rgba(255, 255, 255, .84); text-wrap: pretty; }
+.pe-tapa-p b { color: var(--amarillo); font-weight: 700; }
+.pe-play { display: grid; place-items: center; width: 64px; height: 64px; margin-top: 14px; padding: 0; border: 0; border-radius: 50%; background: var(--amarillo);
+  color: var(--sobre-amarillo); transition: transform .2s var(--ease), background .15s; }
+.pe-play .ic { width: 26px; height: 26px; fill: currentColor; transform: translateX(2px); }
+.pe-tapa:hover .pe-play { transform: scale(1.06); background: var(--amarillo-2); }
+.pe-play:focus-visible { outline-color: #fff; outline-offset: 4px; border-radius: 50%; }
+
+/* ── la línea de tiempo: lo que llevas visto, la ventana de peligro (verde) y tus toques ── */
+.pe-linea { position: relative; height: 30px; margin-top: 12px; }
+.pe-pista { position: absolute; left: 0; right: 0; top: 11px; height: 8px; border-radius: 99px; background: var(--sup-3); }
+.pe-avance { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: inherit; background: var(--linea-3); }
+.pe-ventana { position: absolute; top: -4px; bottom: -4px; z-index: 1; border-radius: 5px; background: color-mix(in srgb, var(--verde) 24%, transparent);
+  box-shadow: inset 0 0 0 1.5px var(--verde); transform-origin: left center; }
+.pe-cabezal { position: absolute; left: 0; top: 50%; z-index: 3; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--txt);
+  box-shadow: 0 0 0 3px var(--bg); }
+.pe-toque { position: absolute; top: 50%; z-index: 4; width: 4px; height: 26px; margin: -13px 0 0 -2px; border-radius: 2px; background: var(--amarillo);
+  transition: background-color .2s; }
+.pe-toque.ok { background: var(--verde); }
+.pe-toque.mal { background: var(--rojo); }
+.pe-toque.practica { width: 3px; height: 20px; margin-top: -10px; }
+
+/* ── el veredicto: la nota (de 5), qué ha pasado y volver a verla ── */
+.pe-veredicto { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 6px 18px; min-height: 64px; margin-top: 8px; }
+.pe-nota { display: flex; align-items: baseline; gap: 2px; }
+.pe-nota b { font: 700 50px/.9 var(--f-titulo); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.pe-nota small { font: 700 20px var(--f-titulo); color: var(--txt-3); }
+.pe-nota.ok b { color: var(--verde); }
+.pe-nota.medio b { color: var(--naranja); }
+.pe-nota.mal b { color: var(--rojo); }
+.pe-juicio-tit { margin: 0; font: 700 17px/1.25 var(--f-texto); }
+.pe-juicio-txt { margin: 3px 0 0; font-size: 14.5px; line-height: 1.45; color: var(--txt-2); text-wrap: pretty; }
+.pe-otra .pe-quedan { margin-left: -5px; color: var(--txt-3); font-weight: 600; }
+
+/* ── la pregunta de después ── */
+.pe-preg { width: min(760px, 100%); margin: 30px auto 0; }
+.pe-preg .preg-enun { font-size: clamp(20px, 2vw, 24px); }
+.pe-preg .ops { margin-top: 20px; }
+.pe-expl { scroll-margin-bottom: 130px; }
+.pe-expl:empty { display: none; }
+
+/* en ordenador, al acabar la escena: la escena (fija) a la izquierda y la pregunta a la derecha */
+@media (min-width: 900px) {
+  .pe-zona.dos { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+  .pe-zona.dos .pe-ver { width: 100%; position: sticky; top: 88px; }
+  .pe-zona.dos .pe-preg { width: auto; margin: 0; }
+  .pe-zona.dos .pe-veredicto { grid-template-columns: auto minmax(0, 1fr); }
+  .pe-zona.dos .pe-otra { grid-column: 2; justify-self: start; }
+}
+
+/* ── el pie: ver la escena, el botón de peligro, siguiente ── */
+.pe-pie .btn-g { min-width: min(340px, 100%); }
+.pe-boton { position: relative; min-height: 72px; min-width: min(460px, 100%); padding: 0 32px; gap: 12px; border-radius: 18px; font: 700 28px/1 var(--f-titulo);
+  letter-spacing: .01em; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.pe-boton .ic { width: 28px; height: 28px; stroke-width: 2.1; }
+.pe-boton .tecla { font-family: var(--f-texto); }
+.pe-boton.pulsa { transform: translateY(2px) scale(.985); background: var(--amarillo-2); }
+.pe-boton-onda { position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; animation: pe-onda .55s var(--ease) forwards; }
+@keyframes pe-onda {
+  from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--amarillo) 60%, transparent); }
+  to { box-shadow: 0 0 0 20px color-mix(in srgb, var(--amarillo) 0%, transparent); }
+}
+
+/* ── el final: las escenas que costaron (en el diálogo de repaso): la reacción en cinco rayas y la pregunta ── */
+.pe-fila { display: grid; grid-template-columns: minmax(0, 1fr) auto 22px; align-items: center; gap: 16px; width: 100%; padding: 13px 16px; border-radius: 12px;
+  border: 1px solid var(--linea); background: var(--sup); color: var(--txt); text-align: left; font: 500 15px/1.35 var(--f-texto); transition: border-color .15s, background .15s; }
+.pe-fila:hover { border-color: var(--linea-3); background: var(--sup-2); }
+.pe-fila-tit { min-width: 0; }
+.pe-fila-tit small { margin-left: 10px; font: 600 12.5px var(--f-texto); color: var(--txt-3); opacity: 0; transition: opacity .15s; }
+.pe-fila:hover .pe-fila-tit small, .pe-fila:focus-visible .pe-fila-tit small { opacity: 1; }
+@media (hover: none) { .pe-fila-tit small { opacity: 1; } }
+.pe-medidor { display: inline-flex; gap: 3px; }
+.pe-medidor i { width: 14px; height: 8px; border-radius: 2px; background: var(--sup-3); }
+.pe-medidor.ok i.on { background: var(--verde); }
+.pe-medidor.medio i.on { background: var(--naranja); }
+.pe-fila-q { display: grid; place-items: center; }
+.pe-fila-q .ic { width: 20px; height: 20px; }
+.pe-fila-q.ok { color: var(--verde); }
+.pe-fila-q.mal { color: var(--rojo); }
+
+/* ── móvil: la escena a todo el ancho y tan alta como quepa (hasta 4:5: el dibujo recorta los lados y los
+   peligros pasan por el centro); con la pregunta, vuelve a 16:9 para dejarle sitio. El botón, grande y abajo ── */
+@media (max-width: 640px) {
+  .ses-main.ancho.pe-main { padding-top: 0; }
+  .pe-ver { width: auto; margin: 0 -16px; }
+  .pe-escena { aspect-ratio: auto; height: clamp(56.25vw, calc(100vh - 300px), 125vw); border-radius: 0; border-width: 0 0 1px; transition: height .45s var(--ease); }
+  .pe-zona.dos .pe-escena { height: 56.25vw; }
+  .pe-linea, .pe-veredicto { margin-inline: 16px; }
+  .pe-chip { top: 10px; height: 26px; font-size: 12.5px; }
+  .pe-ahora { left: 10px; }
+  .pe-rep { right: 10px; }
+  .pe-tapa { gap: 8px; padding: 18px 20px; }
+  .pe-tapa-tit { font-size: 30px; }
+  .pe-tapa-p { font-size: 14px; }
+  .pe-play { width: 52px; height: 52px; margin-top: 6px; }
+  .pe-veredicto { grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; }
+  .pe-otra { grid-column: 2; justify-self: start; }
+  .pe-nota b { font-size: 44px; }
+  .pe-preg { margin-top: 24px; }
+  .pe-pie .btn-g, .pe-boton { width: 100%; }
+  .pe-boton { min-height: 80px; font-size: 30px; border-radius: 20px; }
+  .pe-fila { gap: 12px; padding: 12px 14px; }
+}
+/* pantallas bajas y anchas (el móvil tumbado, una ventana pequeña): la escena cede alto */
+@media (max-height: 560px) and (min-width: 641px) {
+  .ses-main.ancho.pe-main { padding-top: 12px; }
+  .pe-ver { width: clamp(min(100%, 320px), calc((100vh - 210px) * 16 / 9), 100%); }
+  .pe-pie { padding-top: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .pe-boton { min-height: 58px; font-size: 24px; }
+}
+@supports (height: 100dvh) { @media (max-width: 640px) { .pe-escena { height: clamp(56.25vw, calc(100dvh - 300px), 125vw); } .pe-zona.dos .pe-escena { height: 56.25vw; } } }
+@supports (height: 100dvh) { @media (max-height: 560px) and (min-width: 641px) { .pe-ver { width: clamp(min(100%, 320px), calc((100dvh - 210px) * 16 / 9), 100%); } } }

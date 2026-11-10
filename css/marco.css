@@ -1,0 +1,78 @@
+/* El marco: barra lateral (ordenador), barra de arriba y de abajo (móvil), la cabecera de cada sección y la rejilla. */
+
+.app { display: grid; grid-template-columns: 252px minmax(0, 1fr); min-height: 100dvh; }
+
+/* ── barra lateral ── */
+.lado { position: sticky; top: 0; height: 100dvh; display: flex; flex-direction: column; gap: 6px; padding: 22px 14px 16px; background: var(--bg-2);
+  border-right: 1px solid var(--linea); }
+.logo { display: flex; align-items: center; gap: 11px; padding: 4px 10px 24px; border: 0; background: none; color: var(--txt); text-align: left; }
+.logo b { font: 700 19px/1 var(--f-texto); letter-spacing: -.015em; }
+.logo small { display: block; font: 500 12px/1.2 var(--f-texto); color: var(--txt-3); margin-top: 3px; letter-spacing: 0; }
+.nav { display: grid; gap: 2px; }
+.nav button { position: relative; display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 12px; border: 0; border-radius: 10px; background: none;
+  color: var(--txt-2); font: 600 15px var(--f-texto); text-align: left; transition: background .15s, color .15s; }
+.nav button .ic { width: 20px; height: 20px; flex: none; }
+.nav button:hover { background: var(--sup); color: var(--txt); }
+.nav button[aria-current="page"] { background: var(--sup-2); color: var(--txt); }
+.nav { position: relative; }
+.nav-ind { position: absolute; left: -14px; top: 0; width: 3px; height: 42px; border-radius: 0 3px 3px 0; background: var(--amarillo); box-shadow: 0 0 14px rgba(255, 205, 31, .7); pointer-events: none; }
+.nav-ind::after { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 3px; }
+.nav button .ic { transition: transform .25s var(--ease); }
+.nav button:hover .ic { transform: scale(1.12) rotate(-6deg); }
+.nav button[aria-current="page"] .ic { color: var(--amarillo); }
+.nav .nav-n { margin-left: auto; font: 600 12px var(--f-texto); color: var(--txt-3); font-variant-numeric: tabular-nums; }
+.lado-pie { margin-top: auto; display: grid; gap: 12px; }
+/* la cuenta atrás al teórico, como un cartel de distancia */
+.cartel { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; padding: 12px 14px; border-radius: 12px; background: var(--azul-senal);
+  color: #fff; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .3); text-align: left; cursor: pointer; }
+.cartel small { grid-column: 1 / -1; font: 600 12px var(--f-texto); opacity: .8; }
+.cartel b { font: 700 17px/1.1 var(--f-texto); }
+.cartel span { font: 700 26px/1 var(--f-titulo); font-variant-numeric: tabular-nums; }
+.cartel span em { font: 600 13px var(--f-texto); font-style: normal; opacity: .85; margin-left: 2px; }
+.lado-botones { display: flex; gap: 6px; align-items: center; }
+.lado-botones .estado-nube { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font: 600 12px var(--f-texto); color: var(--txt-3); }
+
+/* ── vista ── */
+.vista { min-width: 0; padding: 44px clamp(20px, 4vw, 56px) 96px; outline: 0; }
+.vista-in { width: 100%; max-width: 1180px; margin: 0 auto; }
+
+/* cabecera de sección */
+.cab { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 36px; flex-wrap: wrap; }
+.cab-pre { margin: 0 0 10px; font: 600 14px var(--f-texto); color: var(--txt-2); }
+.cab-pre b { color: var(--txt); font-weight: 600; }
+.cab-der { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+/* rejillas */
+.rejilla { display: grid; gap: 16px; }
+.r-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.r-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.r-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.col-principal { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+.seccion { margin-top: 44px; }
+.seccion-cab { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+
+/* ── móvil: barra de arriba y de abajo ── */
+.arriba-movil, .tabbar { display: none; }
+@media (max-width: 900px) {
+  .app { grid-template-columns: minmax(0, 1fr); }
+  .lado { display: none; }
+  .arriba-movil { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 10px; height: calc(56px + env(safe-area-inset-top)); padding: 0 16px;
+    padding-top: env(safe-area-inset-top); background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid var(--linea); }
+  .arriba-movil .logo { padding: 0; } .arriba-movil .logo b { font-size: 17px; } .arriba-movil .logo small { display: none; }
+  .arriba-movil .cartel { margin-left: auto; display: flex; gap: 8px; padding: 5px 10px; border-width: 1.5px; border-radius: 9px; }
+  .arriba-movil .cartel small { display: none; } .arriba-movil .cartel b { font-size: 13px; } .arriba-movil .cartel span { font-size: 18px; }
+  .tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: grid; grid-template-columns: repeat(5, 1fr);
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); background: color-mix(in srgb, var(--bg-2) 92%, transparent); backdrop-filter: blur(14px);
+    border-top: 1px solid var(--linea); }
+  .tabbar button { position: relative; display: grid; justify-items: center; gap: 3px; padding: 6px 0 4px; border: 0; background: none; color: var(--txt-3);
+    font: 600 11px var(--f-texto); -webkit-tap-highlight-color: transparent; }
+  .tabbar button .ic { width: 22px; height: 22px; }
+  .tabbar button[aria-current="page"] { color: var(--txt); }
+  .tabbar button[aria-current="page"]::before { content: ""; position: absolute; top: -7px; width: 28px; height: 3px; border-radius: 0 0 3px 3px; background: var(--amarillo); }
+  .vista { padding: 24px 16px calc(96px + env(safe-area-inset-bottom)); }
+  .cab { margin-bottom: 24px; }
+  .col-principal { grid-template-columns: minmax(0, 1fr); }
+  .r-3, .r-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .seccion { margin-top: 32px; }
+}
+@media (max-width: 560px) { .r-2, .r-3 { grid-template-columns: minmax(0, 1fr); } .panel { padding: 18px; } }

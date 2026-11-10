@@ -1,0 +1,258 @@
+/* Las sesiones a UNA pantalla: pregunta, opciones, explicación y botón, todo a la vista sin desplazarse. En ordenador,
+   la pregunta a la izquierda y el panel (racha, ronda, explicación) a la derecha; en el móvil, la explicación sube
+   desde abajo. Los tamaños de letra se encogen solos (--k) si algo no cabe. Y el fondo se calienta con la racha. */
+
+.ses.una { position: relative; height: 100dvh; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
+.ses.una > .ses-top, .ses.una > .escena { position: relative; z-index: 1; }
+.ses-fondo { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.ses-fondo .aura.a1 { opacity: calc(.06 + var(--calor, 0) * .34); --c: #ff9d33; transition: opacity .8s; }
+.ses-fondo .aura.a2 { opacity: .08; }
+/* las líneas de velocidad (a partir de 10 seguidas) */
+.velocidad { position: absolute; inset: -20%; opacity: 0; transition: opacity .6s;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg 3deg, rgba(255, 255, 255, .07) 3deg 3.6deg, transparent 3.6deg 9deg);
+  -webkit-mask: radial-gradient(circle at 50% 50%, transparent 32%, #000 70%); mask: radial-gradient(circle at 50% 50%, transparent 32%, #000 70%); animation: rafaga .5s linear infinite; }
+.ses.veloz .velocidad { opacity: 1; }
+@keyframes rafaga { 50% { transform: scale(1.04) rotate(.6deg); } }
+
+/* el escenario */
+.escena { --k: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); grid-template-rows: minmax(0, 1fr); gap: clamp(24px, 3.4vw, 56px); width: 100%; max-width: 1380px; margin: 0 auto;
+  padding: clamp(14px, 3.2vh, 40px) clamp(16px, 4vw, 56px); min-height: 0; }
+.escena-preg { display: flex; flex-direction: column; justify-content: center; gap: calc(18px * var(--k)); min-height: 0; overflow: hidden; padding: 6px 4px; }
+.escena .preg-cuerpo { margin-top: 0; gap: calc(20px * var(--k)); }
+.escena .preg-cuerpo.con-senal { grid-template-columns: minmax(0, 1fr) calc(140px * var(--k)); align-items: center; }
+.escena .preg-enun { font-size: calc(clamp(20px, 2.25vw, 30px) * var(--k)); }
+.escena .preg-ilu { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+.escena .preg-ilu svg { width: auto; max-width: 100%; height: auto; max-height: calc(30vh * var(--k)); }
+.escena .ops { margin-top: 0; gap: calc(10px * var(--k)); }
+.escena .op { padding: calc(14px * var(--k)) 16px; font-size: calc(16.5px * var(--k)); box-shadow: 0 3px 0 var(--btn-borde); transition: border-color .15s, background .15s, transform .12s var(--ease), box-shadow .12s, opacity .25s; }
+.escena .op:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 0 var(--btn-borde), 0 14px 30px -18px rgba(0, 0, 0, .7); border-color: var(--linea-3); }
+.escena .op:hover:not(:disabled) .op-k { border-color: var(--amarillo); color: var(--amarillo); }
+.escena .op:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 var(--btn-borde); }
+.escena .op.bien { box-shadow: 0 0 0 4px var(--ok-fondo), 0 0 30px -6px color-mix(in srgb, var(--verde) 55%, transparent); }
+.escena .op.mal { box-shadow: 0 0 0 4px var(--mal-fondo); }
+
+/* el panel de la derecha: antes de responder, cómo vas; después, la explicación */
+.escena-panel { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 14px; min-height: 0; }
+.escena-panel .panel { padding: 18px; }
+.estado { display: grid; gap: 14px; }
+.escena.resuelta .estado { display: none; }
+.expl-panel { display: none; flex-direction: column; gap: 14px; padding: 22px; border-radius: var(--r-xl); background: var(--sup); border: 1px solid var(--linea-2); min-height: 0;
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, .9); }
+.escena.resuelta .expl-panel { display: flex; }
+.expl-cab { display: flex; align-items: center; gap: 12px; }
+.expl-cab .sello-res { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; flex: none; background: var(--verde); color: #06140c; }
+.expl-cab .sello-res .ic { width: 28px; height: 28px; stroke-width: 2.6; }
+.expl-cab b { display: block; font: 800 34px/.95 var(--f-titulo); color: var(--verde); letter-spacing: -.01em; }
+.expl-cab small { display: block; font: 600 13.5px var(--f-texto); color: var(--txt-2); margin-top: 3px; }
+.expl-panel.ko .sello-res { background: var(--rojo); color: #fff; }
+.expl-panel.ko .expl-cab b { color: var(--rojo); }
+.expl-panel.ok { border-color: color-mix(in srgb, var(--verde) 35%, transparent); }
+.expl-panel.ko { border-color: color-mix(in srgb, var(--rojo) 35%, transparent); }
+.expl-texto { min-height: 0; overflow: auto; font-size: calc(15.5px * var(--k)); line-height: 1.55; }
+.expl-texto p { margin: 0; }
+.expl-texto small { display: block; margin-top: 10px; color: var(--txt-3); font-size: 12.5px; }
+.expl-pie2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.expl-panel .btn-g { width: 100%; margin-top: auto; }
+
+/* el dibujo que explica la respuesta (y el truco), dentro del panel */
+.expl-visual { margin: 0; border-radius: 14px; overflow: hidden; flex: 0 1 auto; min-height: 0; display: flex; justify-content: center; background: var(--sup-2); }
+.expl-visual svg { width: 100%; height: auto; max-height: 30vh; display: block; }
+.expl-visual.senal { padding: 14px; background: radial-gradient(circle at 50% 40%, #fff, #e9e7df); }
+.expl-visual.senal svg { width: auto; max-width: 60%; max-height: 18vh; animation: flotar 3.6s ease-in-out infinite alternate; }
+.expl-truco { margin: 0; font-size: calc(14.5px * var(--k)); }
+.expl-visual { flex-direction: column; }
+.expl-visual figcaption { display: grid; gap: 6px; padding: 10px 12px; font-size: 12.5px; line-height: 1.4; color: var(--txt-2); background: var(--sup-2); }
+.leyenda { display: flex; flex-wrap: wrap; gap: 12px; font: 700 11.5px var(--f-texto); color: var(--txt-2); }
+.ley { display: inline-flex; align-items: center; gap: 6px; }
+.ley::before { content: ""; width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 8px currentColor; }
+.ley.tu::before { background: #e8630f; color: #e8630f; } .ley.ok::before { background: #1f9d55; color: #1f9d55; } .ley.mal::before { background: #d33a2c; color: #d33a2c; }
+.ficha-lienzo figcaption { display: grid; gap: 6px; }
+/* el número del tramo, enorme y casi invisible, detrás de las preguntas sin dibujo */
+.escena-preg { position: relative; }
+.preg-agua { position: absolute; right: -2%; top: 50%; translate: 0 -50%; z-index: -1; font: 800 clamp(220px, 38vh, 420px)/.8 var(--f-titulo); letter-spacing: -.04em;
+  color: transparent; -webkit-text-stroke: 2px color-mix(in srgb, var(--txt) 9%, transparent); pointer-events: none; user-select: none; }
+
+/* tacómetro de la racha */
+.taco { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 14px; align-items: center; }
+.taco svg { width: 120px; height: auto; overflow: visible; }
+.taco-pista { fill: none; stroke: var(--sup-3); stroke-width: 9; stroke-linecap: round; }
+.taco-roja { fill: none; stroke: var(--rojo-senal); stroke-width: 9; opacity: .65; }
+.taco-valor { fill: none; stroke: var(--naranja); stroke-width: 9; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .5s var(--ease); }
+.taco-aguja { stroke: var(--txt); stroke-width: 3; stroke-linecap: round; transition: transform .5s cubic-bezier(.3, 1.6, .5, 1); transform-origin: 60px 60px; }
+.taco-eje { fill: var(--txt); }
+.taco-txt b { display: block; font: 800 46px/.9 var(--f-titulo); font-variant-numeric: tabular-nums; }
+.taco-txt small { display: block; font: 600 12.5px var(--f-texto); color: var(--txt-3); margin-top: 4px; }
+.taco-txt .mult { display: inline-block; margin-top: 8px; padding: 3px 8px; border-radius: 6px; font: 800 13px var(--f-texto); background: var(--sup-3); color: var(--txt-3); }
+.taco.fuego .taco-txt b { color: var(--naranja); text-shadow: 0 0 20px rgba(255, 157, 51, .6); }
+.taco.fuego .taco-txt .mult { background: var(--amarillo); color: var(--sobre-amarillo); box-shadow: 0 0 16px rgba(255, 205, 31, .6); }
+.km-sesion { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.km-sesion b { font: 800 34px/1 var(--f-titulo); color: var(--amarillo); font-variant-numeric: tabular-nums; }
+
+/* ── la clase: la ficha a dos columnas ── */
+.escena.ficha-modo { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); }
+.ficha-texto { display: flex; flex-direction: column; justify-content: center; gap: calc(14px * var(--k)); min-height: 0; overflow: hidden; padding: 4px; }
+.ficha-texto .ficha-tit { font-size: calc(clamp(30px, 3.6vw, 48px) * var(--k)); }
+.ficha-texto .ficha-txt { margin: 0; font-size: calc(clamp(16.5px, 1.45vw, 19.5px) * var(--k)); line-height: 1.58; }
+.ficha-texto .ficha-datos { margin-top: 0; font-size: calc(15px * var(--k)); }
+.ficha-texto .ficha-datos th, .ficha-texto .ficha-datos td { padding: calc(8px * var(--k)) 0; }
+.ficha-texto .truco { margin-top: 0; font-size: calc(15.5px * var(--k)); }
+.res-previo { display: flex; align-items: center; gap: 10px; font: 700 15px var(--f-texto); }
+.res-previo .ic { width: 22px; height: 22px; }
+.res-previo.ok { color: var(--verde); } .res-previo.ko { color: var(--rojo); }
+.ficha-visual { display: flex; flex-direction: column; justify-content: center; gap: 16px; min-height: 0; }
+.ficha-lienzo { position: relative; display: grid; place-items: center; gap: 12px; min-height: 0; flex: 0 1 auto; margin: 0; padding: 16px; border-radius: var(--r-xl);
+  background: var(--sup); border: 1px solid var(--linea); overflow: hidden; box-shadow: 0 30px 70px -40px rgba(0, 0, 0, .9); }
+.ficha-lienzo svg { width: 100%; height: auto; max-height: calc(58vh - 40px); border-radius: 12px; animation: acercar 16s ease-in-out infinite alternate; transform-origin: 50% 60%; }
+@keyframes acercar { to { transform: scale(1.045) translate(-.6%, -.4%); } }
+.ficha-lienzo.senal { background: radial-gradient(circle at 50% 40%, #ffffff, #e9e7df); }
+.ficha-lienzo.senal { padding: 28px; }
+.ficha-lienzo.senal svg { width: min(72%, 340px); height: auto; max-height: 50vh; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .25)); animation: flotar 4s ease-in-out infinite alternate; }
+@keyframes flotar { to { transform: translateY(-8px) rotate(1.5deg); } }
+.ficha-lienzo figcaption { position: relative; z-index: 1; width: 100%; padding: 10px 12px; border-radius: 10px; font-size: 13.5px; line-height: 1.45;
+  background: var(--sup-2); color: var(--txt-2); }
+.ficha-visual .btn-g { width: 100%; }
+.ficha-sin-visual .ficha-visual { justify-content: flex-end; }
+.ficha-marca { position: absolute; top: 14px; right: 14px; }
+
+/* el sello de «Entendido» sobre la ficha */
+.ficha-texto { position: relative; }
+.sello-ficha { position: absolute; right: 8%; top: 18%; display: grid; place-items: center; width: 120px; height: 120px; border-radius: 50%; pointer-events: none;
+  border: 6px solid var(--verde); color: var(--verde); background: color-mix(in srgb, var(--bg) 70%, transparent); box-shadow: 0 0 40px rgba(57, 209, 126, .35); }
+.sello-ficha .ic { width: 64px; height: 64px; stroke-width: 3; }
+.escena .antes { margin: 0; }
+.indice-panel .indice { max-height: 46vh; overflow: hidden; }
+
+/* ── números: la tarjeta en el centro ── */
+.escena.tarjeta-modo .escena-preg { align-items: stretch; }
+.escena.tarjeta-modo .tarjeta { min-height: min(46vh, 380px); }
+
+/* ── finales a una pantalla ── */
+.escena.final-modo { grid-template-columns: minmax(0, 1fr); align-content: center; justify-items: center; overflow: hidden; }
+.escena.final-modo .final { padding-top: 0; width: min(760px, 100%); }
+.escena.final-modo .final .h1 { font-size: calc(clamp(44px, 6vw, 76px) * var(--k)); }
+.escena.final-modo .final-cifras { margin-top: calc(26px * var(--k)); }
+.escena.final-modo .final-cifras b { font-size: calc(40px * var(--k)); }
+.escena.final-modo .final-acc { margin-top: calc(24px * var(--k)); }
+.escena.final-modo .cierre { margin-top: calc(24px * var(--k)); }
+.final-medalla { display: grid; place-items: center; width: 96px; height: 96px; margin: 0 auto 6px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff3b0, var(--amarillo) 55%, #b88a00);
+  color: #2a2000; font: 800 34px/1 var(--f-titulo); box-shadow: 0 0 0 6px var(--am-fondo), 0 20px 50px -14px rgba(255, 205, 31, .6); }
+
+/* el examen: el mapa en el panel */
+.escena .ex-nav { margin-top: 0; }
+
+/* ── móvil: una columna; la explicación sube desde abajo ── */
+@media (max-width: 900px) {
+  .escena { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; padding: 14px 16px; gap: 10px; }
+  .escena-preg { justify-content: flex-start; padding-top: 4px; }
+  .escena-panel { position: static; justify-content: flex-end; }
+  .escena-panel .estado, .escena-panel .ses-atajos { display: none; }
+  .expl-panel { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: flex; max-height: 58dvh; padding: 18px 18px calc(16px + env(safe-area-inset-bottom));
+    border-radius: 22px 22px 0 0; transform: translateY(105%); transition: transform .38s var(--ease); box-shadow: 0 -20px 60px -20px rgba(0, 0, 0, .8); }
+  .escena.resuelta .expl-panel { transform: none; }
+  .escena.resuelta .preg-ilu { display: none; }
+  .escena.resuelta .preg-cuerpo.con-senal { grid-template-columns: minmax(0, 1fr) 64px; }
+  .expl-cab .sello-res { width: 42px; height: 42px; } .expl-cab b { font-size: 28px; }
+  .expl-visual svg { max-height: 20dvh; }
+  .expl-panel .expl-truco { display: none; }
+  .preg-agua { font-size: 220px; top: 62%; opacity: .7; }
+  .escena.ficha-modo { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 12px; padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .ficha-visual { order: -1; }
+  .ficha-lienzo { max-height: 30dvh; padding: 10px; }
+  .ficha-lienzo svg { max-height: calc(30dvh - 20px); }
+  .ficha-lienzo figcaption { display: none; }
+  .ficha-visual .btn-g { position: fixed; left: 16px; right: 16px; bottom: calc(14px + env(safe-area-inset-bottom)); width: auto; z-index: 30; }
+  .ficha-texto { justify-content: flex-start; }
+  .ficha-sin-visual .indice-panel { display: none; }
+  .ficha-sin-visual { grid-template-rows: minmax(0, 1fr); }
+  .escena.tarjeta-modo .tarjeta { min-height: 34dvh; }
+}
+@media (max-height: 760px) and (min-width: 901px) {
+  .escena { padding-top: 14px; padding-bottom: 14px; }
+  .ses-top { height: 56px; }
+}
+
+/* la etiqueta de las preguntas trampa */
+.chip-trampa { animation: aviso-trampa 1.6s ease-in-out infinite; }
+@keyframes aviso-trampa { 50% { box-shadow: 0 0 0 4px var(--mal-fondo); } }
+
+/* ═══════════ Más vivo (solo con los efectos completos; en el modo ligero el fondo de la sesión no existe) ═══════════ */
+/* el suelo: una carretera en perspectiva que pasa por debajo, más deprisa cuanto más racha */
+.fondo-suelo { position: absolute; left: -25%; right: -25%; bottom: -6%; height: 52%; perspective: 520px; opacity: .55;
+  -webkit-mask: linear-gradient(transparent, #000 55%); mask: linear-gradient(transparent, #000 55%); }
+.fondo-suelo i { position: absolute; left: 0; right: 0; top: -120%; bottom: 0; transform-origin: 50% 100%; transform: rotateX(74deg);
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .09) 0 2px, transparent 2px 64px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .06) 0 2px, transparent 2px 140px);
+  animation: suelo calc(1.6s - var(--calor, 0) * 1s) linear infinite; }
+@keyframes suelo { to { transform: rotateX(74deg) translateY(64px); } }
+/* la raya discontinua del centro y las dos líneas de borde, que pasan con el suelo */
+.fondo-suelo i::before { content: ""; position: absolute; left: calc(50% - 6px); width: 12px; top: 0; bottom: 0;
+  background: repeating-linear-gradient(0deg, rgba(255, 205, 31, .85) 0 34px, transparent 34px 64px); box-shadow: 0 0 18px rgba(255, 205, 31, .35); }
+.fondo-suelo i::after { content: ""; position: absolute; left: 34%; right: 34%; top: 0; bottom: 0; border-left: 7px solid rgba(255, 255, 255, .5); border-right: 7px solid rgba(255, 255, 255, .5); }
+:root[data-tema="claro"] .fondo-suelo { opacity: .3; filter: invert(1); }
+/* luces desenfocadas que suben despacio */
+.bokeh i { position: absolute; left: var(--x); bottom: -12%; width: var(--s); height: var(--s); border-radius: 50%; opacity: .7;
+  background: radial-gradient(circle, rgba(255, 214, 90, .38), rgba(255, 157, 51, .08) 55%, transparent 70%); animation: sube var(--d) linear var(--t) infinite; }
+.bokeh i:nth-child(3n) { background: radial-gradient(circle, rgba(110, 157, 255, .3), transparent 70%); }
+@keyframes sube { to { transform: translate(var(--dx), -125vh); } }
+.ses-fondo .estelas { position: absolute; inset: 0; opacity: .55; }
+
+/* ── la pregunta, más grande y con más presencia en el ordenador ── */
+.escena .preg-enun { position: relative; padding-left: .7em; }
+.escena .preg-enun::before { content: ""; position: absolute; left: 0; top: .12em; bottom: .12em; width: 5px; border-radius: 3px; background: var(--amarillo);
+  box-shadow: 0 0 16px rgba(255, 205, 31, .55); }
+/* las respuestas: tarjetas que flotan (cada una a su ritmo) y se levantan bajo el ratón */
+.escena .op { box-shadow: 0 3px 0 var(--btn-borde), 0 22px 44px -24px rgba(0, 0, 0, .9); }
+:root[data-fx="completo"] .escena .ops:not(.resuelta) .op { animation: op-flota 3.4s ease-in-out infinite; }
+:root[data-fx="completo"] .escena .ops:not(.resuelta) .op:nth-child(2) { animation-delay: -1.13s; }
+:root[data-fx="completo"] .escena .ops:not(.resuelta) .op:nth-child(3) { animation-delay: -2.26s; }
+@keyframes op-flota { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+.escena .op:hover:not(:disabled) { transform: translateY(-4px) scale(1.012); border-color: color-mix(in srgb, var(--amarillo) 60%, transparent);
+  box-shadow: 0 5px 0 var(--btn-borde), 0 0 0 3px var(--am-fondo), 0 26px 50px -22px rgba(0, 0, 0, .9); }
+.escena .op:hover:not(:disabled) .op-k { background: var(--amarillo); border-color: transparent; color: var(--sobre-amarillo); }
+/* los dibujos se pueden ampliar */
+.escena .preg-ilu, .expl-visual:not(.senal), .ficha-lienzo { position: relative; cursor: zoom-in; }
+.escena .preg-ilu::after, .expl-visual:not(.senal)::after, .ficha-lienzo::after { content: "⤢  Ampliar"; position: absolute; top: 10px; right: 10px; padding: 5px 9px; border-radius: 8px;
+  font: 700 12px var(--f-texto); color: #fff; background: rgba(0, 0, 0, .55); opacity: 0; transition: opacity .2s; pointer-events: none; }
+.escena .preg-ilu:hover::after, .expl-visual:not(.senal):hover::after, .ficha-lienzo:hover::after { opacity: 1; }
+.escena .preg-ilu svg { border-radius: 16px; box-shadow: 0 24px 60px -30px rgba(0, 0, 0, .9); }
+/* el dibujo ampliado */
+.dialogo:has(.zoom) { width: min(1320px, 96vw); padding: 18px; }
+.dialogo:has(.zoom) .dialogo-cerrar { z-index: 2; top: 26px; right: 26px; background: rgba(0, 0, 0, .55); color: #fff; }
+.zoom { margin: 0; display: grid; gap: 12px; }
+.zoom svg { width: 100%; height: auto; max-height: 80vh; border-radius: 14px; }
+.zoom figcaption { display: grid; gap: 6px; font-size: 15px; line-height: 1.5; color: var(--txt-2); }
+
+@media (min-width: 1101px) {
+  .escena { max-width: 1760px; grid-template-columns: minmax(0, 1fr) clamp(360px, 25vw, 480px); }
+  .escena .preg-enun { font-size: calc(clamp(24px, 2.15vw, 44px) * var(--k)); line-height: 1.22; }
+  .escena .preg-meta .chip { height: 30px; font-size: 13.5px; }
+  .escena .ops { gap: calc(clamp(10px, .9vw, 18px) * var(--k)); }
+  .escena .op { grid-template-columns: clamp(38px, 2.5vw, 50px) minmax(0, 1fr) 28px; gap: clamp(14px, 1.1vw, 22px); border-radius: 18px;
+    padding: calc(clamp(15px, 1.25vw, 26px) * var(--k)) clamp(16px, 1.3vw, 26px); font-size: calc(clamp(17px, 1.22vw, 24px) * var(--k)); }
+  .escena .op-k { width: clamp(38px, 2.5vw, 50px); height: clamp(38px, 2.5vw, 50px); border-radius: 11px; font-size: clamp(14px, .95vw, 18px); }
+  .escena .op-marca { width: 28px; height: 28px; }
+  .escena .preg-cuerpo.con-senal { grid-template-columns: minmax(0, 1fr) calc(clamp(150px, 12vw, 240px) * var(--k)); }
+  .escena .preg-ilu svg { max-height: calc(46vh * var(--k)); }
+  .expl-visual svg { max-height: 38vh; }
+  .expl-panel { padding: clamp(20px, 1.5vw, 30px); }
+  .expl-cab b { font-size: clamp(34px, 2.3vw, 46px); }
+  .expl-texto { font-size: calc(clamp(15.5px, 1.02vw, 19.5px) * var(--k)); }
+  .escena-panel .panel { padding: clamp(18px, 1.3vw, 26px); }
+  .taco-txt b { font-size: clamp(46px, 3vw, 64px); }
+  .ficha-texto .ficha-tit { font-size: calc(clamp(30px, 3.4vw, 60px) * var(--k)); }
+  .ficha-texto .ficha-txt { font-size: calc(clamp(16.5px, 1.35vw, 25px) * var(--k)); }
+  .ficha-lienzo svg { max-height: calc(64vh - 40px); }
+}
+
+/* el dibujo de la pregunta nunca se encoge hasta desaparecer: si falta sitio, encoge todo (--k). En el ordenador, la
+   pregunta arriba y debajo, el dibujo en grande a la izquierda y las respuestas a la derecha */
+.preg-ley { font-size: 12.5px; color: var(--txt-2); }
+@media (min-width: 1101px) {
+  .escena-preg:has(> .preg-ilu) { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); align-content: center; column-gap: clamp(18px, 2vw, 40px); row-gap: calc(18px * var(--k)); }
+  .escena-preg:has(> .preg-ilu) > :is(.preg-meta, .preg-cuerpo, .antes) { grid-column: 1 / -1; }
+  .escena-preg:has(> .preg-ilu) > .preg-ilu { grid-column: 1; align-self: center; }
+  .escena-preg:has(> .preg-ilu) > .ops { grid-column: 2; align-self: center; }
+  .escena-preg:has(> .preg-ilu) .preg-ilu svg { width: 100%; max-height: calc(56vh * var(--k)); }
+  .escena-preg:has(> .preg-ilu) .preg-enun { font-size: calc(clamp(22px, 1.9vw, 38px) * var(--k)); }
+  .escena-preg:has(> .preg-ilu) .op { font-size: calc(clamp(16px, 1.05vw, 21px) * var(--k)); }
+}

@@ -1,0 +1,64 @@
+/* La bienvenida (src/pantallas/bienvenida.ts): la primera vez en un aparato. Tres pasos con aire, en una columna de
+   revista: qué es (la placa L que se dibuja, el titular y las cifras del banco), cómo funciona y tú. Prefijo bv-. */
+
+.bv { min-height: 100%; display: flex; flex-direction: column; overflow-x: clip; }
+.bv-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: env(safe-area-inset-top) 20px 0; }
+.bv-pasos { display: flex; align-items: center; gap: 6px; }
+.bv-pasos i { width: 10px; height: 4px; border-radius: 99px; background: var(--sup-3); transition: width .35s var(--ease), background-color .35s; }
+.bv-pasos i.hecho { background: var(--txt-3); }
+.bv-pasos i.act { width: 28px; background: var(--amarillo); }
+.bv-main { flex: 1; display: grid; align-items: center; justify-items: center; padding: 12px 24px calc(64px + env(safe-area-inset-bottom)); }
+.bv-paso { width: min(620px, 100%); }
+
+/* ── 1 · qué es: la placa L (el logo) entra y su L se dibuja; el titular y las cifras ── */
+.bv-placa.placa-l { width: 60px; height: 60px; border-radius: 14px; box-shadow: inset 0 0 0 4.5px #fff, 0 0 0 1px rgba(0, 0, 0, .25);
+  animation: bv-placa .5s var(--ease) both; }
+.bv-placa.placa-l::before { width: 19px; height: 27px; border-left-width: 7px; border-bottom-width: 7px; transform: translate(2px, -2px);
+  animation: bv-ele .7s .3s var(--ease) both; }
+@keyframes bv-placa { from { opacity: 0; transform: translateY(-10px) scale(.92); } }
+/* primero el palo (de arriba abajo), luego el pie de la L (hacia la derecha) */
+@keyframes bv-ele {
+  0% { clip-path: inset(0 100% 100% 0); }
+  55% { clip-path: inset(0 calc(100% - 7px) 0 0); }
+  100% { clip-path: inset(0); }
+}
+.bv-tit { margin-top: 30px; text-wrap: balance; }
+.bv-sub { margin: 18px 0 0; max-width: 40ch; font: 500 18px/1.5 var(--f-texto); color: var(--txt-2); text-wrap: pretty; }
+.bv-cifras { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 40px; border-top: 1px solid var(--linea-2); }
+.bv-cifras > div { min-width: 0; padding: 18px 12px 0 0; }
+.bv-cifras > div + div { padding-left: 18px; border-left: 1px solid var(--linea); }
+.bv-cifras .cifra { display: block; }
+.bv-cifras span { display: block; margin-top: 8px; font: 600 13.5px/1.3 var(--f-texto); color: var(--txt-2); }
+.bv-acc { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 44px; }
+.bv-acc .btn-g { min-width: 210px; }
+
+/* ── 2 · cómo funciona: tres hitos kilométricos ── */
+.bv-h { margin-top: 10px; text-wrap: balance; }
+.bv-lista { list-style: none; margin: 34px 0 0; padding: 0; display: grid; gap: 24px; }
+.bv-lista li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 18px; align-items: start; }
+.bv-lista .hito { margin-top: 1px; }
+.bv-lista b { display: block; font: 600 18px/1.3 var(--f-texto); }
+.bv-lista p { margin: 4px 0 0; font-size: 16px; line-height: 1.5; color: var(--txt-2); text-wrap: pretty; }
+
+/* ── 3 · tú: nombre y fecha (con el cartel de lo que falta) y los dos caminos ── */
+.bv-campos { display: grid; gap: 16px; max-width: 420px; margin-top: 30px; }
+.bv-campos .entrada { min-height: 50px; font-size: 16px; }
+.bv-cartel { width: fit-content; min-width: 230px; margin-top: 2px; cursor: default; }
+.bv-pasada { margin: 0; font: 600 14px var(--f-texto); color: var(--rojo); }
+
+@media (max-width: 640px) {
+  .bv-top { min-height: 56px; padding-inline: 16px; }
+  .bv-main { align-items: start; padding: 8vh 16px calc(32px + env(safe-area-inset-bottom)); }
+  .bv-placa.placa-l { width: 52px; height: 52px; border-radius: 12px; }
+  .bv-tit { margin-top: 24px; }
+  .bv-sub { font-size: 16.5px; }
+  .bv-cifras { margin-top: 32px; }
+  .bv-cifras > div + div { padding-left: 12px; }
+  .bv-cifras .cifra { font-size: 36px; }
+  .bv-cifras span { font-size: 12.5px; }
+  .bv-acc { flex-direction: column; align-items: stretch; margin-top: 36px; }
+  .bv-acc .btn { width: 100%; }
+  .bv-lista { gap: 20px; margin-top: 28px; }
+  .bv-lista li { gap: 14px; }
+  .bv-campos { max-width: none; }
+}

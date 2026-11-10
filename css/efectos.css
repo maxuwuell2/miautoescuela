@@ -1,0 +1,161 @@
+/* Los efectos: el lienzo de partículas, el combo gigante, la onda de cada pulsación, el foco de luz bajo el ratón, el
+   borde que gira, el fondo vivo (estelas de luces y auras) y las letras que entran una a una. */
+
+.fx { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 450; pointer-events: none; }
+
+/* el combo gigante */
+.combo { position: fixed; left: 50%; top: 40%; z-index: 440; translate: -50% -50%; display: grid; justify-items: center; gap: 4px; pointer-events: none; text-align: center; }
+.combo b { font: 800 clamp(64px, 11vw, 150px)/.85 var(--f-titulo); letter-spacing: -.02em; color: var(--amarillo);
+  -webkit-text-stroke: 2px #14130f; paint-order: stroke fill; text-shadow: 0 0 40px rgba(255, 205, 31, .55), 0 10px 0 #14130f; white-space: nowrap; }
+.combo small { font: 800 18px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: #fff; text-shadow: 0 2px 10px rgba(0, 0, 0, .6); }
+
+/* la onda de cada pulsación */
+.onda { position: fixed; z-index: 445; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; pointer-events: none;
+  border: 2px solid color-mix(in srgb, var(--txt) 55%, transparent); }
+.onda.fuerte { border-color: var(--amarillo); box-shadow: 0 0 18px rgba(255, 205, 31, .5); }
+
+/* el foco de luz que sigue al ratón por encima de las tarjetas */
+.panel, .instr, .tramo, .pr-modo, .paso-btn, .th-clase, .pr-tramo, .op, .nota, .tarjeta, .cierre, [data-foco] {
+  background-image: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), color-mix(in srgb, var(--amarillo) 9%, transparent), transparent 45%); }
+.instr { background-image: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), color-mix(in srgb, var(--amarillo) 9%, transparent), transparent 45%),
+  radial-gradient(130% 120% at 50% 0%, var(--sup-2), var(--sup) 62%); }
+.tramo, .pr-modo, .instr, .parada-hoy, .tarjeta { transform-style: preserve-3d; }
+
+/* el borde que gira (la tarjeta que te llama) */
+.borde-vivo { position: relative; isolation: isolate; }
+.borde-vivo::after { content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: inherit; padding: 2px;
+  background: conic-gradient(from var(--giro, 0deg), transparent 0 55%, var(--amarillo) 75%, #fff 80%, var(--amarillo) 85%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: girar 3.2s linear infinite; }
+@property --giro { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes girar { to { --giro: 360deg; } }
+
+/* las letras que entran una a una */
+.pal { display: inline-block; white-space: nowrap; clip-path: inset(-60% -20% -4% -20%); }
+.let { display: inline-block; }
+
+/* ── el fondo vivo: estelas de luces de coches y auras ── */
+.fondo-vivo { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.aura { position: absolute; border-radius: 50%; opacity: .16; background: radial-gradient(closest-side, var(--c, #ffcd1f), transparent); }
+.aura.a1 { width: 46vw; height: 46vw; left: -12vw; top: -18vw; --c: #ffcd1f; animation: deriva1 38s ease-in-out infinite alternate; }
+.aura.a2 { width: 40vw; height: 40vw; right: -14vw; bottom: -16vw; --c: #2f6bff; opacity: .14; animation: deriva2 44s ease-in-out infinite alternate; }
+.aura.a3 { width: 30vw; height: 30vw; left: 40vw; top: 50vh; --c: #ff6a2b; opacity: .07; animation: deriva1 52s ease-in-out infinite alternate-reverse; }
+@keyframes deriva1 { to { transform: translate(18vw, 14vh) scale(1.2); } }
+@keyframes deriva2 { to { transform: translate(-16vw, -12vh) scale(1.15); } }
+.estelas i { position: absolute; left: 0; top: var(--y); width: var(--l); height: 2px; border-radius: 2px; opacity: var(--o);
+  background: linear-gradient(90deg, transparent, rgba(255, 244, 214, .15) 30%, #fff4d6 92%, #fff); animation: estela var(--d) linear var(--t) infinite; will-change: transform; }
+.estelas i.roja { background: linear-gradient(270deg, transparent, rgba(255, 60, 40, .15) 30%, #ff3b2b 92%, #ff7a6b); animation-name: estela-roja; }
+@keyframes estela { from { transform: translateX(-50vw); } to { transform: translateX(150vw); } }
+@keyframes estela-roja { from { transform: translateX(150vw); } to { transform: translateX(-50vw); } }
+:root[data-tema="claro"] .aura { opacity: .1; }
+:root[data-tema="claro"] .aura.a2 { opacity: .07; }
+:root[data-tema="claro"] .estelas { opacity: .35; filter: invert(1) hue-rotate(180deg); }
+
+/* las superficies dejan ver un poco el fondo vivo */
+.panel, .paso-btn, .tramo, .pr-modo, .th-clase, .pr-tramo { background-color: color-mix(in srgb, var(--sup) 88%, transparent); }
+.lado { background: color-mix(in srgb, var(--bg-2) 88%, transparent); }
+
+/* ── Hoy: el encendido del salpicadero y los toques ── */
+.testigos.prueba .t-luz { color: #ffcd1f !important; box-shadow: inset 0 0 16px rgba(255, 205, 31, .35) !important; }
+.testigos.prueba .t-luz .ic { filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 0 14px currentColor); }
+.vel-marcas line.encendida { stroke: var(--amarillo); }
+.parada-hoy.borde-vivo { border-color: transparent; overflow: visible; }
+.parada-hoy.borde-vivo::before { border-radius: var(--r-xl) 0 0 var(--r-xl); }
+.parada-hoy.borde-vivo::after { inset: -1.5px; padding: 1.5px; }
+.coche { animation: bache 0.6s ease-in-out infinite alternate; }
+@keyframes bache { to { translate: 0 -1.5px; } }
+
+/* el barrido de luz al cambiar de sección */
+.barrido { position: fixed; top: 0; bottom: 0; left: 0; width: 40vw; z-index: 55; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 220, 120, .10) 40%, rgba(255, 240, 200, .22) 50%, rgba(255, 220, 120, .10) 60%, transparent); mix-blend-mode: screen; }
+:root[data-tema="claro"] .barrido { mix-blend-mode: multiply; background: linear-gradient(90deg, transparent, rgba(255, 196, 0, .12) 50%, transparent); }
+
+/* un logro nuevo */
+.logro { position: fixed; top: 18px; left: 50%; z-index: 430; translate: -50% 0; display: flex; align-items: center; gap: 14px; min-width: min(420px, calc(100vw - 32px));
+  padding: 14px 20px 14px 14px; border-radius: 18px; background: var(--sup-2); border: 1px solid color-mix(in srgb, var(--amarillo) 45%, transparent);
+  box-shadow: 0 0 0 4px var(--am-fondo), 0 24px 60px -20px rgba(0, 0, 0, .8); }
+.logro-sello { display: grid; place-items: center; min-width: 66px; height: 46px; padding: 0 8px; flex: none; border-radius: 8px; font: 800 18px var(--f-titulo);
+  color: #fff; background: var(--azul-senal); border: 2.5px solid #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .35), 0 10px 24px -10px rgba(24, 86, 194, .8); }
+.logro small { display: block; font: 700 11.5px var(--f-texto); letter-spacing: .1em; text-transform: uppercase; color: var(--amarillo); }
+.logro b { display: block; font: 800 24px/1.05 var(--f-titulo); }
+.logro span { display: block; font-size: 13px; color: var(--txt-2); margin-top: 2px; }
+
+/* más vida al pasar el ratón */
+.paso-btn .b-senal, .paso-btn .b-ico, .parada-hoy .ph-ico { transition: transform .35s var(--ease); }
+.paso-btn:hover .b-senal, .paso-btn:hover .b-ico { transform: rotate(-7deg) scale(1.1); }
+.parada-hoy .ph-ico { animation: flotar 3s ease-in-out infinite alternate; }
+.logo .placa-l { transition: transform .4s var(--ease); }
+.logo:hover .placa-l { transform: rotate(-10deg) scale(1.1); }
+.cartel { transition: transform .25s var(--ease), box-shadow .25s; }
+.cartel:hover { transform: translateY(-2px) rotate(-1deg); box-shadow: 0 0 0 1px rgba(0, 0, 0, .3), 0 14px 30px -12px rgba(24, 86, 194, .7); }
+.testigo .t-luz { transition: transform .25s var(--ease), background .3s, box-shadow .3s, color .3s; }
+.testigo:hover .t-luz { transform: scale(1.12); }
+@keyframes flotar { to { transform: translateY(-6px) rotate(1.5deg); } }
+
+/* ── los dibujos, vivos: los puntos de cada trayectoria avanzan, tu coche late, las marcas saltan ── */
+.ilu-ruta.punteada { animation: marcha .9s linear infinite; }
+@keyframes marcha { to { stroke-dashoffset: -24; } }
+.ilu-halo { transform-box: fill-box; transform-origin: center; animation: halo 1.8s ease-out infinite; }
+@keyframes halo { from { opacity: .9; transform: scale(.7); } to { opacity: 0; transform: scale(1.35); } }
+.ilu-mal { animation: aspa 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.ilu-mal > *, .ilu-bien > * { transform-box: fill-box; }
+@keyframes aspa { 0%, 70%, 100% { opacity: 1; } 80% { opacity: .55; } }
+.ilu-viajero { opacity: .95; }
+
+/* ── las escenas 2D de los finales ── */
+.final-escena { display: flex; align-items: flex-end; justify-content: center; gap: 6px; margin: 0 auto 6px; height: calc(150px * var(--k, 1)); }
+.e2d { height: 100%; width: auto; overflow: visible; }
+.e2d-semaforo { height: 90%; }
+.e2d-cifra { position: relative; display: flex; align-items: flex-end; padding-bottom: 12px; font: 800 calc(92px * var(--k, 1))/.85 var(--f-titulo); letter-spacing: -.02em; color: var(--amarillo);
+  text-shadow: 0 0 34px rgba(255, 205, 31, .35); }
+.e2d-cifra span { display: inline-block; }
+.e2d-cifra i { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; border-radius: 3px; background: repeating-linear-gradient(-45deg, var(--amarillo) 0 10px, #111 10px 20px); }
+/* el resultado de una respuesta: la marca dibujada, sin círculo */
+.expl-cab .sello-res { width: 46px; height: 46px; background: none !important; color: var(--verde); }
+.expl-panel.ko .expl-cab .sello-res { color: var(--rojo); }
+.expl-cab .sello-res .ic { width: 42px; height: 42px; stroke-width: 3.2; }
+.expl-cab .sello-res .ic * { stroke-dasharray: 40; stroke-dashoffset: 40; animation: dibuja .45s .1s var(--ease) forwards; }
+
+@media (prefers-reduced-motion: reduce) { .fondo-vivo, .fx, .ilu-viajero, .ilu-halo { display: none; } .borde-vivo::after, .ilu-ruta { animation: none; } }
+
+/* ═══════════ Modo ligero (móviles y aparatos justos): lo mismo, sin lo que más cuesta ═══════════
+   Lo pone la plantilla al arrancar (data-fx="ligero") en pantallas táctiles o con poca CPU/memoria, o si la app nota que
+   va a tirones; se cambia en Tú › Ajustes › Efectos. Fuera: el fondo animado, el grano, los desenfoques de las barras,
+   las sombras con filtro de los dibujos, lo que se repinta en bucle y las brasas. Se quedan: chispas, combos, confeti
+   (con menos piezas), sonidos y todas las transiciones. */
+:root[data-fx="ligero"] .fondo-vivo, :root[data-fx="ligero"] .barrido, :root[data-fx="ligero"] .ses-fondo { display: none !important; }
+:root[data-fx="ligero"] body::before { display: none; }
+:root[data-fx="ligero"] .ses-top, :root[data-fx="ligero"] .arriba-movil { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg); }
+:root[data-fx="ligero"] .tabbar { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-2); }
+:root[data-fx="ligero"] .velo, :root[data-fx="ligero"] .ficha-lienzo figcaption { -webkit-backdrop-filter: none; backdrop-filter: none; }
+:root[data-fx="ligero"] .borde-vivo::after { display: none; }
+:root[data-fx="ligero"] .parada-hoy.borde-vivo { border-color: var(--amarillo); }
+:root[data-fx="ligero"] .ilu-svg .ilu-veh, :root[data-fx="ligero"] .ilu-svg .ilu-etq { filter: none; }
+:root[data-fx="ligero"] .ilu-viajero { display: none; }
+:root[data-fx="ligero"] .ilu-halo { animation: none; opacity: .7; }
+:root[data-fx="ligero"] .vel-valor, :root[data-fx="ligero"] #vel-aguja { filter: none; }
+:root[data-fx="ligero"] .testigo.on .t-luz .ic { filter: drop-shadow(0 0 4px currentColor); }
+:root[data-fx="ligero"] :is(.latiendo, .hz-raya, .hz-coche, .hz-luz, .raya-c, .rp-deuda, .coche, .ilu-ruta, .ilu-mal, .chip-trampa, .ficha-lienzo svg,
+  .ficha-lienzo.senal svg, .expl-visual.senal svg, .parada-hoy .ph-ico, .ses-racha.fuego .ic, .estelas i, .aura) { animation: none !important; }
+:root[data-fx="ligero"] .btn-pri:hover::after { animation: none; }
+:root[data-fx="ligero"] .rp-lleno, :root[data-fx="ligero"] .nivel-barra > i, :root[data-fx="ligero"] .ses-racha.fuego { box-shadow: none; }
+
+/* ── todo se mueve un poco (solo con los efectos completos): paneles que respiran, tramos y modos que flotan ── */
+:root[data-fx="completo"] :is(.instr, .hoy-lado > .panel, .escena-panel .estado > .panel) { animation: respira-panel 7s ease-in-out infinite; }
+:root[data-fx="completo"] :is(.instr, .hoy-lado > .panel, .escena-panel .estado > .panel):nth-child(2) { animation-delay: -2.3s; }
+:root[data-fx="completo"] :is(.instr, .hoy-lado > .panel, .escena-panel .estado > .panel):nth-child(3) { animation-delay: -4.6s; }
+@keyframes respira-panel { 50% { translate: 0 -4px; } }
+:root[data-fx="completo"] :is(.tramo, .pr-modo, .pr-tramo) { animation: respira-panel 6s ease-in-out infinite; }
+:root[data-fx="completo"] :is(.tramo, .pr-modo, .pr-tramo):nth-child(3n+1) { animation-delay: -2s; }
+:root[data-fx="completo"] :is(.tramo, .pr-modo, .pr-tramo):nth-child(3n+2) { animation-delay: -4s; }
+:root[data-fx="completo"] :is(.tramo, .pr-modo):hover { animation-play-state: paused; }
+:root[data-fx="completo"] .tramo-senal svg, :root[data-fx="completo"] .b-senal svg { animation: senal-viva 4.5s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes senal-viva { 0%, 100% { rotate: 0deg; } 50% { rotate: -3deg; } }
+:root[data-fx="completo"] .cartel span { animation: cartel-luz 2.8s ease-in-out infinite; }
+@keyframes cartel-luz { 50% { text-shadow: 0 0 14px rgba(255, 255, 255, .7); } }
+:root[data-fx="completo"] .placa-l { animation: placa 5s ease-in-out infinite; }
+@keyframes placa { 0%, 88%, 100% { rotate: 0deg; } 92% { rotate: -8deg; } 96% { rotate: 5deg; } }
+/* en el fondo de las secciones también suben luces */
+.fondo-vivo .bokeh { position: absolute; inset: 0; }
+
+/* ventana en segundo plano o minimizada: todo quieto hasta que vuelvas (efectos.ts, pausarSinFoco) */
+.en-pausa *, .en-pausa *::before, .en-pausa *::after { animation-play-state: paused !important; }

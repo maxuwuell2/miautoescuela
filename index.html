@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es" data-tema="oscuro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>Miautoescuela</title>
+<meta name="description" content="El teórico del permiso B, a fondo: clases que empiezan preguntando, dominio de cada tramo, modo intensivo de 10 días y exámenes como el de la DGT.">
+<link rel="icon" type="image/svg+xml" href="icono.svg">
+<link rel="apple-touch-icon" href="icono.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0d0e10">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Miautoescuela">
+<script>try { var t = localStorage.getItem('miau-tema'); if (t === 'claro' || t === 'oscuro') { document.documentElement.dataset.tema = t; document.querySelector('meta[name="theme-color"]').content = t === 'claro' ? '#f3f1ea' : '#0d0e10'; } } catch (e) {}
+// efectos: ligeros en pantallas táctiles, con poca CPU o memoria, o si ya se notó que iba a tirones (lo mismo que aparatoJusto en comun.ts)
+(function () { var fx = 'auto', lento = false; try { fx = localStorage.getItem('miau-efectos') || 'auto'; lento = localStorage.getItem('miau-fx-lento') === '1'; } catch (e) {}
+  var justo = lento || matchMedia('(pointer: coarse)').matches || (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+  document.documentElement.dataset.fx = fx === 'ligeros' || (fx === 'auto' && justo) ? 'ligero' : 'completo'; })();</script>
+<script type="importmap">{ "imports": { "gsap": "./vendor/gsap/index.js" } }</script>
+<link rel="preload" href="vendor/fuentes/barlow/barlow-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="vendor/fuentes/barlow/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="vendor/fuentes/barlow.css">
+<link rel="stylesheet" href="css/sistema.css">
+<link rel="stylesheet" href="css/marco.css">
+<link rel="stylesheet" href="css/secciones.css">
+<link rel="stylesheet" href="css/sesion.css">
+<link rel="stylesheet" href="css/escena.css">
+<link rel="stylesheet" href="css/efectos.css">
+<link rel="stylesheet" href="css/tu.css">
+<link rel="stylesheet" href="css/chuleta.css">
+<link rel="stylesheet" href="css/peligro.css">
+<link rel="stylesheet" href="css/bienvenida.css">
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="lado" aria-label="Navegación">
+    <button class="logo" id="logo"><span class="placa-l" aria-hidden="true"></span><span><b>miautoescuela</b><small>Teórico del permiso B</small></span></button>
+    <nav class="nav" id="nav" aria-label="Secciones"></nav>
+    <div class="lado-pie">
+      <button class="cartel" id="cartel" hidden></button>
+      <div class="lado-botones">
+        <button class="btn btn-fant btn-icono" id="b-tema" aria-label="Cambiar a tema claro"></button>
+        <button class="btn btn-fant btn-icono" id="b-sonido" aria-label="Silenciar"></button>
+        <span class="estado-nube" id="estado-nube"></span>
+      </div>
+    </div>
+  </aside>
+  <div class="cuerpo">
+    <header class="arriba-movil"><button class="logo" id="logo-m"><span class="placa-l" aria-hidden="true"></span><span><b>miautoescuela</b></span></button><button class="cartel" id="cartel-m" hidden></button></header>
+    <main class="vista" id="vista" tabindex="-1"></main>
+  </div>
+</div>
+<nav class="tabbar" id="tabbar" aria-label="Secciones"></nav>
+<section class="pantalla" id="pantalla" hidden></section>
+<script type="module">import { gsap } from 'gsap'; window.gsap = gsap;</script>
+<script type="module" src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator && window.isSecureContext && location.protocol !== 'file:') {
+  var habia = !!navigator.serviceWorker.controller;
+  // versión nueva: se recarga sola, pero nunca en mitad de una clase o un test (espera a que la cierres)
+  var recargar = function () {
+    if (window.miauRecarga) return;
+    var p = document.getElementById('pantalla');
+    if (p && !p.hidden) { addEventListener('miau-pantalla-cerrada', recargar, { once: true }); return; }
+    window.miauRecarga = 1; location.reload();
+  };
+  navigator.serviceWorker.register('sw.js').then(function (reg) {
+    // con la app abierta mucho rato, mira si hay versión nueva al volver a ella y cada 20 minutos
+    var mirar = function () { reg.update().catch(function () {}); };
+    document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') mirar(); });
+    setInterval(mirar, 20 * 60 * 1000);
+  }).catch(function () {});
+  navigator.serviceWorker.addEventListener('controllerchange', function () { if (habia) recargar(); });
+}
+</script>
+</body>
+</html>

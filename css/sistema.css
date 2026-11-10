@@ -1,0 +1,247 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+   Sistema visual «Señal» (DISEÑO.md): el lenguaje de la carretera, con sobriedad de revista.
+   Asfalto y papel, un solo acento (el amarillo de obra), Barlow (grotesca de rótulos de carretera) y su versión
+   estrecha para los números grandes. Nada de degradados, pegatinas ni sombras de colores: jerarquía, aire y líneas.
+   ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ── tokens: oscuro («asfalto», por defecto) ── */
+:root {
+  color-scheme: dark;
+  --bg: #0d0e10;
+  --bg-2: #111214;
+  --sup: #16181b;
+  --sup-2: #1c1e22;
+  --sup-3: #26292e;
+  --linea: rgba(255, 255, 255, .07);
+  --linea-2: rgba(255, 255, 255, .12);
+  --linea-3: rgba(255, 255, 255, .22);
+  --txt: #f2f1ec;
+  --txt-2: #a6a59f;
+  --txt-3: #6f6e6a;
+  --amarillo: #ffcd1f;
+  --amarillo-2: #ffda52;
+  --amarillo-borde: #a88400;
+  --btn-borde: rgba(0, 0, 0, .55);
+  --sobre-amarillo: #14130f;
+  --azul: #6e9dff;
+  --azul-senal: #1856c2;
+  --verde: #39d17e;
+  --verde-l: #0e9a55;
+  --rojo: #ff5b4f;
+  --rojo-senal: #d42a1d;
+  --naranja: #ff9d33;
+  --ok-fondo: rgba(57, 209, 126, .09);
+  --mal-fondo: rgba(255, 91, 79, .09);
+  --am-fondo: rgba(255, 205, 31, .09);
+  --sombra: none;
+  --sombra-flota: 0 30px 70px -24px rgba(0, 0, 0, .75);
+  --velo: rgba(5, 6, 7, .72);
+  --r-s: 8px;
+  --r: 12px;
+  --r-l: 16px;
+  --r-xl: 22px;
+  --f-texto: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-titulo: 'Barlow Condensed', 'Barlow', system-ui, sans-serif;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --ease-sale: cubic-bezier(.4, 0, 1, 1);
+}
+/* ── tokens: claro («papel») ── */
+:root[data-tema="claro"] {
+  color-scheme: light;
+  --bg: #f3f1ea;
+  --bg-2: #ece9e0;
+  --sup: #ffffff;
+  --sup-2: #f8f6f0;
+  --sup-3: #e9e6dc;
+  --linea: rgba(20, 19, 15, .08);
+  --linea-2: rgba(20, 19, 15, .14);
+  --linea-3: rgba(20, 19, 15, .26);
+  --txt: #131311;
+  --txt-2: #5c5b55;
+  --txt-3: #8e8c84;
+  --amarillo: #ffc400;
+  --amarillo-2: #ffd033;
+  --amarillo-borde: #c29400;
+  --btn-borde: rgba(20, 19, 15, .16);
+  --sobre-amarillo: #131311;
+  --azul: #1856c2;
+  --verde: #0a8a49;
+  --rojo: #d2352a;
+  --naranja: #c96d06;
+  --ok-fondo: rgba(10, 138, 73, .07);
+  --mal-fondo: rgba(210, 53, 42, .06);
+  --am-fondo: rgba(255, 196, 0, .16);
+  --sombra: 0 1px 2px rgba(20, 19, 15, .05);
+  --sombra-flota: 0 30px 70px -26px rgba(20, 19, 15, .4);
+  --velo: rgba(30, 28, 22, .38);
+}
+
+/* ── base ── */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--txt); font: 400 16px/1.5 var(--f-texto); -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; font-feature-settings: 'kern'; }
+/* el grano del asfalto (o del papel), muy suave, para que el fondo no sea plástico */
+body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+:root[data-tema="claro"] body::before { opacity: .05; filter: invert(1); }
+.app { position: relative; z-index: 1; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: inherit; }
+img, svg { display: block; }
+/* los iconos de trazo (iconos.ts): 20 px salvo que el sitio diga otra cosa */
+.ic { display: inline-block; width: 20px; height: 20px; flex: none; vertical-align: middle; }
+::selection { background: var(--amarillo); color: var(--sobre-amarillo); }
+:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 2px; border-radius: 6px; }
+[hidden] { display: none !important; }
+* { scrollbar-width: thin; scrollbar-color: var(--sup-3) transparent; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ── tipografía ── */
+.display { font: 700 clamp(48px, 7vw, 88px)/.88 var(--f-titulo); letter-spacing: -.02em; margin: 0; }
+.h1 { font: 700 clamp(40px, 5vw, 64px)/.92 var(--f-titulo); letter-spacing: -.015em; margin: 0; }
+.h2 { font: 600 20px/1.25 var(--f-texto); letter-spacing: -.005em; margin: 0; }
+.h3 { font: 600 16px/1.3 var(--f-texto); margin: 0; }
+.etq { font: 600 12.5px/1.2 var(--f-texto); color: var(--txt-2); margin: 0; }
+.etq-m { font: 700 11.5px/1.2 var(--f-texto); letter-spacing: .08em; text-transform: uppercase; color: var(--txt-3); margin: 0; }
+.p2 { color: var(--txt-2); margin: 0; }
+.cifra { margin: 0; font: 700 44px/.9 var(--f-titulo); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.cifra small { font: 600 15px var(--f-texto); color: var(--txt-2); letter-spacing: 0; margin-left: 4px; }
+.rico b { color: var(--txt); font-weight: 700; background: linear-gradient(transparent 62%, var(--am-fondo) 62%); }
+
+/* ── botones ── */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 0 18px; border-radius: var(--r);
+  border: 1px solid var(--linea-2); background: var(--sup-2); color: var(--txt); font: 600 15px/1 var(--f-texto); white-space: nowrap;
+  text-decoration: none; transition: background .15s, border-color .15s, color .15s, transform .08s; -webkit-tap-highlight-color: transparent; }
+.btn:hover { background: var(--sup-3); }
+.btn { position: relative; box-shadow: 0 2px 0 var(--btn-borde); }
+.btn:active { transform: translateY(2px); box-shadow: 0 0 0 var(--btn-borde); }
+.btn:disabled { opacity: .45; cursor: default; transform: none; }
+.btn-pri { background: var(--amarillo); border-color: transparent; color: var(--sobre-amarillo); }
+.btn-pri { overflow: hidden; box-shadow: 0 4px 0 var(--amarillo-borde), 0 14px 30px -16px rgba(255, 205, 31, .7); }
+.btn-pri:hover { background: var(--amarillo-2); box-shadow: 0 4px 0 var(--amarillo-borde), 0 16px 36px -14px rgba(255, 205, 31, .85); }
+.btn-pri:active { transform: translateY(4px); box-shadow: 0 0 0 var(--amarillo-borde), 0 6px 18px -12px rgba(255, 205, 31, .7); }
+/* el brillo que cruza el botón principal al pasar por encima */
+.btn-pri::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .55) 50%, transparent 65%);
+  transform: translateX(-130%); pointer-events: none; }
+.btn-pri:hover::after { animation: brillo .75s var(--ease); }
+@keyframes brillo { to { transform: translateX(130%); } }
+/* el botón que te llama: un aro que respira */
+.latiendo { animation: respira 2.4s ease-in-out infinite; }
+@keyframes respira { 0%, 100% { box-shadow: 0 4px 0 var(--amarillo-borde), 0 0 0 0 rgba(255, 205, 31, .5); } 60% { box-shadow: 0 4px 0 var(--amarillo-borde), 0 0 0 12px rgba(255, 205, 31, 0); } }
+.latiendo:active { animation: none; }
+.btn-fant { background: transparent; border-color: transparent; color: var(--txt-2); box-shadow: none; }
+.btn-fant:active { box-shadow: none; }
+.btn-fant:hover { background: var(--sup-2); color: var(--txt); }
+.btn-peligro { color: var(--rojo); }
+.btn-g { min-height: 54px; padding: 0 24px; font-size: 16.5px; border-radius: 14px; }
+.btn-p { min-height: 34px; padding: 0 12px; font-size: 14px; border-radius: 9px; }
+.btn .ic { width: 18px; height: 18px; }
+.btn-ancho { width: 100%; }
+.tecla { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 6px; font: 600 11.5px var(--f-texto);
+  color: inherit; opacity: .7; border: 1px solid currentColor; }
+.btn-pri .tecla { border-color: rgba(0, 0, 0, .25); opacity: .65; }
+.btn-icono { width: 40px; min-height: 40px; padding: 0; border-radius: 10px; }
+@media (hover: none) { .tecla { display: none; } }
+
+/* ── superficies ── */
+.panel { background: var(--sup); border: 1px solid var(--linea); border-radius: var(--r-l); padding: 22px; box-shadow: var(--sombra); }
+.panel-cab { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.separa { height: 1px; background: var(--linea); border: 0; margin: 20px 0; }
+/* la raya discontinua de un carril */
+.raya { height: 2px; border: 0; margin: 28px 0; background: repeating-linear-gradient(90deg, var(--linea-3) 0 20px, transparent 20px 34px); }
+/* la cinta de obra (amarillo y negro) */
+.cinta { background: repeating-linear-gradient(-45deg, var(--amarillo) 0 12px, #111 12px 24px); }
+
+/* ── chips y marcas ── */
+.chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 99px; background: var(--sup-2);
+  border: 1px solid var(--linea); font: 600 12.5px/1 var(--f-texto); color: var(--txt-2); white-space: nowrap; }
+.chip .ic { width: 14px; height: 14px; }
+.chip-am { background: var(--amarillo); border-color: transparent; color: var(--sobre-amarillo); }
+.chip-ok { color: var(--verde); border-color: color-mix(in srgb, var(--verde) 35%, transparent); background: var(--ok-fondo); }
+.chip-mal { color: var(--rojo); border-color: color-mix(in srgb, var(--rojo) 35%, transparent); background: var(--mal-fondo); }
+.punto { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--txt-3); }
+.punto.ok { background: var(--verde); } .punto.mal { background: var(--rojo); } .punto.am { background: var(--amarillo); }
+
+/* el hito kilométrico (poste blanco con la cabeza roja) */
+.hito { display: inline-grid; place-items: center; min-width: 30px; height: 36px; padding: 6px 4px 0; border-radius: 6px 6px 3px 3px; background: #f3f2ed;
+  color: #111; font: 700 15px/1 var(--f-titulo); border-top: 8px solid var(--rojo-senal); font-variant-numeric: tabular-nums; flex: none; }
+/* la señal de límite de velocidad: un número dentro de un aro rojo */
+.limite { --t: 112px; width: var(--t); height: var(--t); border-radius: 50%; background: #fff; border: calc(var(--t) * .11) solid var(--rojo-senal);
+  display: grid; place-items: center; color: #111; font: 700 calc(var(--t) * .4)/1 var(--f-titulo); letter-spacing: -.02em; flex: none;
+  font-variant-numeric: tabular-nums; box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--linea-2); }
+/* la placa L de novel (el logo) */
+.placa-l { width: 30px; height: 30px; border-radius: 7px; background: var(--verde-l); display: grid; place-items: center; flex: none;
+  box-shadow: inset 0 0 0 2.5px #fff, 0 0 0 1px rgba(0, 0, 0, .25); }
+.placa-l::before { content: ""; width: 9px; height: 13px; border-left: 3.4px solid #fff; border-bottom: 3.4px solid #fff; transform: translate(1px, -1px); }
+
+/* ── progreso ── */
+.barra { height: 6px; border-radius: 99px; background: var(--sup-3); overflow: hidden; }
+.barra > i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--amarillo); transition: width .6s var(--ease); }
+.barra.ok > i { background: var(--verde); }
+.barra-f { height: 3px; }
+/* 16 columnas: un tramo cada una, rellena de abajo arriba según lo dominado */
+.dieciseis { display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); gap: 3px; align-items: end; }
+.dieciseis > i { height: 34px; border-radius: 3px; background: linear-gradient(to top, var(--amarillo) var(--p, 0%), var(--sup-3) var(--p, 0%)); }
+.dieciseis > i.lleno { background: var(--verde); }
+
+/* ── formularios ── */
+.campo { display: grid; gap: 6px; }
+.campo > span { font: 600 12.5px var(--f-texto); color: var(--txt-2); }
+.entrada { width: 100%; min-height: 44px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--linea-2); background: var(--sup-2); color: var(--txt);
+  font: 500 15px var(--f-texto); outline: 0; transition: border-color .15s; }
+.entrada:focus { border-color: var(--amarillo); }
+textarea.entrada { padding: 12px 14px; min-height: 110px; resize: vertical; line-height: 1.5; }
+.entrada::placeholder { color: var(--txt-3); }
+.interruptor { position: relative; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font: 600 14.5px var(--f-texto); }
+.interruptor input { position: absolute; opacity: 0; pointer-events: none; }
+.interruptor i { width: 42px; height: 24px; border-radius: 99px; background: var(--sup-3); position: relative; transition: background .2s; flex: none; }
+.interruptor i::after { content: ""; position: absolute; left: 3px; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform .2s var(--ease); }
+.interruptor input:checked + i { background: var(--verde); }
+.interruptor input:checked + i::after { transform: translateX(18px); }
+.interruptor input:focus-visible + i { outline: 2px solid var(--amarillo); outline-offset: 2px; }
+
+/* pestañas (segmentos) */
+.pestanas { display: inline-flex; gap: 2px; padding: 3px; border-radius: 12px; background: var(--sup); border: 1px solid var(--linea); max-width: 100%; overflow-x: auto; }
+.pestanas button { border: 0; background: none; height: 34px; padding: 0 14px; border-radius: 9px; color: var(--txt-2); font: 600 14px var(--f-texto); white-space: nowrap; }
+.pestanas button:hover { color: var(--txt); }
+.pestanas button[aria-selected="true"] { background: var(--sup-3); color: var(--txt); }
+
+/* tablas (chuleta, comparativas) */
+.tabla { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.tabla th, .tabla td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+.tabla thead th { font: 600 12.5px var(--f-texto); color: var(--txt-3); border-bottom-color: var(--linea-2); }
+.tabla tbody th { font-weight: 500; color: var(--txt-2); }
+.tabla td b { font: 700 17px var(--f-titulo); letter-spacing: .01em; color: var(--txt); }
+.tabla tr:last-child th, .tabla tr:last-child td { border-bottom: 0; }
+
+/* ── avisos, diálogos ── */
+.aviso { position: fixed; left: 50%; bottom: 28px; z-index: 300; transform: translateX(-50%); max-width: min(520px, calc(100vw - 32px)); padding: 13px 18px;
+  border-radius: 12px; background: var(--sup-3); color: var(--txt); border: 1px solid var(--linea-2); box-shadow: var(--sombra-flota); font: 600 14.5px/1.35 var(--f-texto);
+  text-align: center; pointer-events: none; }
+.velo { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 20px; background: var(--velo); backdrop-filter: blur(6px); }
+.dialogo { width: min(480px, 100%); max-height: calc(100dvh - 40px); overflow: auto; padding: 26px; border-radius: var(--r-xl); background: var(--sup);
+  border: 1px solid var(--linea-2); box-shadow: var(--sombra-flota); position: relative; }
+.dialogo.ancho { width: min(720px, 100%); }
+.dialogo > p { margin: 0 0 20px; font: 500 17px/1.45 var(--f-texto); }
+.dialogo-acc { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+.dialogo-cerrar { position: absolute; top: 14px; right: 14px; }
+
+/* la celebración: la cinta de obra cruza la pantalla y el titular en grande */
+.fiesta { position: fixed; inset: 0; z-index: 400; display: grid; place-items: center; pointer-events: none; overflow: hidden; }
+.fiesta-fondo { position: absolute; inset: 0; background: var(--velo); }
+.fiesta .cinta { position: absolute; left: -10%; right: -10%; height: 46px; top: calc(50% - 98px); transform: rotate(-4deg); box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
+.fiesta .cinta.dos { top: calc(50% + 66px); transform: rotate(3deg); }
+.fiesta-txt { position: relative; text-align: center; color: #fff; padding: 0 20px; }
+.fiesta-txt small { display: block; font: 700 14px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--amarillo); }
+.fiesta-txt b { display: block; font: 800 clamp(54px, 11vw, 132px)/.86 var(--f-titulo); letter-spacing: -.02em; text-shadow: 0 6px 30px rgba(0, 0, 0, .45); }
+.fiesta.ok .cinta { background: repeating-linear-gradient(-45deg, var(--verde) 0 12px, #0b120e 12px 24px); }
+.fiesta.mal .cinta { background: repeating-linear-gradient(-45deg, var(--rojo-senal) 0 12px, #fff 12px 24px); }
+
+/* el destello del borde de la pantalla (rachas y logros dentro de una sesión) */
+.destello { position: fixed; inset: 0; z-index: 85; pointer-events: none; box-shadow: inset 0 0 140px 24px rgba(255, 205, 31, .5); }
+.destello.ok { box-shadow: inset 0 0 140px 24px rgba(57, 209, 126, .45); }
+.destello.mal { box-shadow: inset 0 0 140px 24px rgba(255, 91, 79, .4); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
